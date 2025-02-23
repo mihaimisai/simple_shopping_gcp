@@ -5,6 +5,7 @@ import Header from "./components/Header"
 import { AuthProvider } from './contexts/AuthContext'
 import LoginApp from './components/routes/LoginApp'
 import Nav from "./components/Nav"
+import Test from "./components/routes/Test"
 
 function App() {
 
