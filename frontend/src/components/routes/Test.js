@@ -2,8 +2,7 @@ import Header from "..//Header"
 
 function Test() {
 
-    return 
-    <>
+    return <>
         <Header />
     </>
        
