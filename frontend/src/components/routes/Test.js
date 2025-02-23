@@ -1,10 +1,13 @@
+import Header from "./components/Header"
+
 function Test() {
 
-    return <>
-        <div>
-            <h2>Test Rout</h2>
-        </div>
+    return 
+    <>
+        <Header />
     </>
+       
+ 
 }
 
 export default Test

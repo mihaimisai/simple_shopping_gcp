@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react'
 import { BrowserRouter,Route, Routes } from 'react-router-dom'
 import 'bootstrap/dist/css/bootstrap.css'
-import Header from "./components/Header"
 import { AuthProvider } from './contexts/AuthContext'
 import LoginApp from './components/routes/LoginApp'
 import Nav from "./components/Nav"
@@ -37,14 +36,13 @@ function App() {
           {/* Navigation menu & hamburger */}
           <div className="row d-flex text-center my-5 justify-content-center">
             <Nav />
-            <Header />
-            <p className="text-white col">The response from FastAPI is: {message}</p>
           </div>
+          <p className="text-white col">The response from FastAPI is: {message}</p>
         </div>
          
+         {/* Body where content is displayed */}
         <div >
-         
-          <div className="col">
+          <div>
             <Routes>
               <Route exact path='/' element={<LoginApp />} />
               <Route path='/test' element={<Test />} />
