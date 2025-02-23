@@ -6,10 +6,7 @@ import reportWebVitals from './reportWebVitals';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
 
-<div className="vh-100 bg-secondary d-flex align-items-center justify-content-center">
-    <div className="row gx-0 py-4 d-flex align-items-center justify-content-center">
-        <h1 className="text-center">Shopping List</h1>
-    </div>
+<div className="bg-dark d-flex align-items-center justify-content-center">
     <App />
 </div>
 
