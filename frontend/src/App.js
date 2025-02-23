@@ -1,9 +1,10 @@
-import { useEffect, useState } from 'react';
-import { BrowserRouter,Route, Routes } from 'react-router-dom';
-import 'bootstrap/dist/css/bootstrap.css';
+import { useEffect, useState } from 'react'
+import { BrowserRouter,Route, Routes } from 'react-router-dom'
+import 'bootstrap/dist/css/bootstrap.css'
 import Header from "./components/Header"
-import { AuthProvider } from './contexts/AuthContext';
-import LoginApp from './components/routes/LoginApp';
+import { AuthProvider } from './contexts/AuthContext'
+import LoginApp from './components/routes/LoginApp'
+import Nav from "./components/Nav"
 
 function App() {
 
@@ -34,7 +35,7 @@ function App() {
         <div className="text-white d-flex">
           {/* Navigation menu & hamburger */}
           <div className="row d-flex text-center my-5 justify-content-center">
-            <h3>Navigation</h3>
+            <Nav />
             <Header />
             <p className="text-white col">The response from FastAPI is: {message}</p>
           </div>
@@ -45,7 +46,7 @@ function App() {
           <div className="col">
             <Routes>
               <Route exact path='/' element={<LoginApp />} />
-
+              <Route path='/test' element={<Test />} />
             </Routes>
           </div>
         </div>
