@@ -31,17 +31,17 @@ function App() {
   return ( <>
      <BrowserRouter>
       <AuthProvider>
-        <div className="text-white d-flex row gx-0 h-100">
+        <div className="text-white d-flex">
           {/* Navigation menu & hamburger */}
-          <div className="col-2 d-flex flex-column align-items-center text-center">
+          <div className="row d-flex text-center my-5 justify-content-center">
             <h3>Navigation</h3>
+            <Header />
+            <p className="text-white col">The response from FastAPI is: {message}</p>
           </div>
         </div>
-  
-        <div className="text-white col">
-          <Header />
-          <h1> HELLO </h1>
-          <p>The response from FastAPI is: {message}</p>
+         
+        <div >
+         
           <div className="col">
             <Routes>
               <Route exact path='/' element={<LoginApp />} />
