@@ -17,7 +17,11 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Set up Google Cloud
+      - name: Authenticate to Google Cloud CLI
+        uses: google-github-actions/auth
+        with: ${{ secrets.DEV_KEY }}
+
+      - name: Set up Google Cloud CLI
         uses: google-github-actions/setup-gcloud@v2
         with:
           project_id: simple-shopping-dev
@@ -25,7 +29,6 @@ jobs:
       - name: Authenticate with Google Cloud (Development)
         run: |
           echo "${{ secrets.DEV_KEY }}" | gcloud auth activate-service-account --key-file=-
-
 
       - name: Install Terraform
         uses: hashicorp/setup-terraform@v3
