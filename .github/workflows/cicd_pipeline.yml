@@ -9,45 +9,45 @@ jobs:
   terraform:
     runs-on: ubuntu-latest
 
-  steps:
-    - name: Checkout and clone repo
-      uses: actions/checkout@v4
+    steps:
+      - name: Checkout and clone repo
+        uses: actions/checkout@v4
 
-    - name: Set up Google Cloud credentials
-      env:
-        GCP_CREDENTIALS_JSON: ${{ secrets.GCP_CREDENTIALS }}
-      run: |
-        echo "$GCP_CREDENTIALS_JSON" > "${HOME}/gcloud-key.json"
-        gcloud auth activate-service-account --key-file="${HOME}/gcloud-key.json"
+      - name: Set up Google Cloud credentials
+        env:
+          GCP_CREDENTIALS_JSON: ${{ secrets.GCP_CREDENTIALS }}
+        run: |
+          echo "$GCP_CREDENTIALS_JSON" > "${HOME}/gcloud-key.json"
+          gcloud auth activate-service-account --key-file="${HOME}/gcloud-key.json"
 
-    - name: Install Terraform
-      uses: hashicorp/setup-terraform
-      
-    - name: Initialize Terraform
-      run: terraform init
+      - name: Install Terraform
+        uses: hashicorp/setup-terraform
+        
+      - name: Initialize Terraform
+        run: terraform init
 
-    - name: Set up Google Cloud project
-      run: |
-        if github.ref == 'refs/heads/main' then
-          gcloud config set project simple-shopping-prod-454211  # Prod project
-          terraform workspace select prod || terraform workspace new prod
-        elif github.ref == 'refs/heads/dev' then
-          gcloud config set project simple-shopping-dev  # Dev project
-          terraform workspace select dev || terraform workspace new dev
-        fi
+      - name: Set up Google Cloud project
+        run: |
+          if github.ref == 'refs/heads/main' then
+            gcloud config set project simple-shopping-prod-454211  # Prod project
+            terraform workspace select prod || terraform workspace new prod
+          elif github.ref == 'refs/heads/dev' then
+            gcloud config set project simple-shopping-dev  # Dev project
+            terraform workspace select dev || terraform workspace new dev
+          fi
 
-    - name : Terraform format
-      working-directory : terraform
-      run: terraform fmt
+      - name : Terraform format
+        working-directory : terraform
+        run: terraform fmt
 
-    - name: Terraform validate
-      working-directory : terraform
-      run: terraform validate
+      - name: Terraform validate
+        working-directory : terraform
+        run: terraform validate
 
-    - name: Terraform plan
-      working-directory : terraform
-      run: terraform plan
+      - name: Terraform plan
+        working-directory : terraform
+        run: terraform plan
 
-    - name: Terraform apply
-      working-directory : terraform
-      run: terraform apply -auto-approve
+      - name: Terraform apply
+        working-directory : terraform
+        run: terraform apply -auto-approve
