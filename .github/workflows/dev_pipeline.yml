@@ -29,10 +29,6 @@ jobs:
         with:
           project_id: simple-shopping-dev
 
-      - name: Authenticate with Google Cloud (Development)
-        run: |
-          echo "${{ secrets.DEV_KEY }}" | gcloud auth activate-service-account --key-file=-
-
       - name: Install Terraform
         uses: hashicorp/setup-terraform@v3
 
