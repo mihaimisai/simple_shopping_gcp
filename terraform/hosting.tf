@@ -1,5 +1,5 @@
-resource "google_firebase_hosting_site" "default" {
-    provider = google-beta
-    project = "shopping-list-dev"
-    site_id = "shopping-list-react"
+resource "google_storage_bucket" "react_app_bucket" {
+  name     = "shopping-list-react"
+  location = "EU"
+  storage_class = "STANDARD"
 }
