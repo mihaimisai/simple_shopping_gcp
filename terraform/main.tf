@@ -1,5 +1,5 @@
 
 provider "google" {
 
-  region      = "europe-west2"
+  region = "europe-west2"
 }

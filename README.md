@@ -21,6 +21,6 @@ This is a full-stack shopping list application built with **React** for the fron
 
 ## Requirements
 
-For starters I created 2 projects in Google Cloud Console, Prod and Dev. Then created a service account for Prod which I'm using for Dev too.
+For starters I created 2 projects in Google Cloud Console, Prod and Dev. Then created 2 service accounts individually.
 The purpose of this is to have control and be able to test new functionalities on Dev before these are uploaded to Prod which is also the final version.
 
