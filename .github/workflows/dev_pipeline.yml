@@ -29,6 +29,11 @@ jobs:
         with:
           project_id: simple-shopping-dev
 
+      - name: Check the active project
+        run: |
+          echo "Currently logged in project:"
+          gcloud config get-value project
+
       - name: Install Terraform
         uses: hashicorp/setup-terraform@v3
 
@@ -43,6 +48,6 @@ jobs:
 
       - name: Terraform plan
         run: terraform plan
-        
+
       - name: Terraform Apply
         run: terraform apply -auto-approve
