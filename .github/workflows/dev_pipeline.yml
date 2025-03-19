@@ -19,7 +19,10 @@ jobs:
 
       - name: Authenticate to Google Cloud CLI
         uses: google-github-actions/auth@v2
-        with: ${{ secrets.DEV_KEY }}
+        with: 
+          credentials_json: "${{ secrets.DEV_KEY }}"
+          create_credentials_file: true
+          export_environment_variables: true
 
       - name: Set up Google Cloud CLI
         uses: google-github-actions/setup-gcloud@v2
