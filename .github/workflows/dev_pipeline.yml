@@ -18,7 +18,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Authenticate to Google Cloud CLI
-        uses: google-github-actions/auth
+        uses: google-github-actions/auth@v2
         with: ${{ secrets.DEV_KEY }}
 
       - name: Set up Google Cloud CLI
