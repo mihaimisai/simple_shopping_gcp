@@ -1,2 +1,2 @@
 def blank_test():
-    pass
+    assert True
