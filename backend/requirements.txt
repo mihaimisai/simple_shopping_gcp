@@ -1,3 +1,4 @@
+black
 fastapi
 flake8
 gunicorn
