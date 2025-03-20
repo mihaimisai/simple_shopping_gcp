@@ -1,3 +1,4 @@
+bandit
 black
 fastapi
 flake8
