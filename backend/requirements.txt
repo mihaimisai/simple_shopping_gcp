@@ -7,6 +7,7 @@ CacheControl==0.14.2
 certifi==2025.1.31
 charset-normalizer==3.4.1
 click==8.1.8
+coverage==7.7.0
 cyclonedx-python-lib==8.9.0
 defusedxml==0.7.1
 fastapi==0.115.11
@@ -37,6 +38,7 @@ pyflakes==3.2.0
 Pygments==2.19.1
 pyparsing==3.2.1
 pytest==8.3.5
+pytest-cov==6.0.0
 PyYAML==6.0.2
 requests==2.32.3
 rich==13.9.4
