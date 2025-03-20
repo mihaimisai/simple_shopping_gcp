@@ -21,6 +21,6 @@ This is a full-stack shopping list application built with **React** for the fron
 ## Requirements
 
 Google account, Firebase and Google Cloud
-
+Modules required for Backend and tests are saved in backend/requirements.txt
 
 

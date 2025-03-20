@@ -3,3 +3,4 @@
 /.pytest_cache
 /pytest.ini
 /venv/
+dev_key.json
