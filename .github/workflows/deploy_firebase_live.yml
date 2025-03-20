@@ -42,7 +42,7 @@ jobs:
         uses: google-github-actions/auth@v0
         with: 
           credentials_json: '{{ secrets.SA_CREDS }}'
-        run: echo 'Logged in succesfully.'
+        echo 'Logged in succesfully.'
 
 
   build_and_deploy:
