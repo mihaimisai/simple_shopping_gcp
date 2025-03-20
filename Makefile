@@ -1,4 +1,5 @@
 PYTHONPATH=${WD}/backend
+SHELL := /bin/bash
 
 # Create virtual env
 
