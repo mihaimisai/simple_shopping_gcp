@@ -41,7 +41,7 @@ jobs:
       - name: Google Auth
         uses: google-github-actions/auth@v0
         with: 
-          credentials_json: '{{ secrets.SA_CREDS }}'
+          credentials_json: ${{ secrets.SA_CREDS }}
 
 
   build_and_deploy:
