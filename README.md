@@ -15,12 +15,12 @@ This is a full-stack shopping list application built with **React** for the fron
 - **Backend**: FastAPI
 - **Database**: Firestore (Firebase NoSQL Database)
 - **Authentication**: Firebase Authentication (Google Sign-In)
-- **Deployment**: Google Cloud, Firebase Hosting, Cloud Run
-- **Infrastructure**: Terraform (for infrastructure as code)
+- **Deployment**: Google Cloud, Firebase Hosting, Cloud Run, deployed via GitHub Actions
 - **Testing**: Pytest (for testing Backend)
 
 ## Requirements
 
-For starters I created 2 projects in Google Cloud Console, Prod and Dev. Then created 2 service accounts individually.
-The purpose of this is to have control and be able to test new functionalities on Dev before these are uploaded to Prod which is also the final version.
+Google account, Firebase and Google Cloud
+
+
 

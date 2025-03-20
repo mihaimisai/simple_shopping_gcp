@@ -1,4 +1,4 @@
-name: Deploy with Terraform
+name: Deploy React
 
 on:
   push:
@@ -13,6 +13,9 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Test echo
+      - name: Set up Node.js
         run: echo "This is dev"
+
+      - name: Install Firebase CLI
+        run: npm install -g firebase-tools
       
