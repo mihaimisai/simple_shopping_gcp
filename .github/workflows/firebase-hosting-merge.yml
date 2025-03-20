@@ -5,9 +5,35 @@ on:
     branches:
       - main
 jobs:
+
+  backend_tests:
+    runs-on: ubuntu-latest
+    
+    steps:
+
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Make environment
+        run: make environment
+
+      - name: Install requirements
+        run: make requirements
+
+      - name: Run format
+        run: make format-check
+
+      - name: Run security checks
+        run: make security
+
+      - name: Run tests
+        run: make run-tests
+
   build_and_deploy:
     runs-on: ubuntu-latest
+
     steps:
+
       - name: Checkout repo
         uses: actions/checkout@v4
 
