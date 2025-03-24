@@ -2,8 +2,9 @@ bandit
 black
 fastapi
 flake8
-gunicorn
+gunicorn==23.0.0
 httpx
 pip_audit
 pytest
 pytest-cov
+Werkzeug==3.0.3
