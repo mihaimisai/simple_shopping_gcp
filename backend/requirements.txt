@@ -7,4 +7,3 @@ httpx
 pip_audit
 pytest
 pytest-cov
-uvicorn
