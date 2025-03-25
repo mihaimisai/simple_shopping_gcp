@@ -15,7 +15,7 @@ function App() {
         }
       })
         .then(
-          data => {setMessage(data)}
+          data => {setMessage(JSON.stringify(data))}
         )
 
 
