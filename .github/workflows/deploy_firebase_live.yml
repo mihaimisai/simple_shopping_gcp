@@ -50,9 +50,6 @@ jobs:
           service: 'shopping-list-fastapi'
           region: 'europe-west2'
           source: './backend'
-      
-      - name: Debug Info
-        run: gcloud run services describe shopping-list-fastapi --region europe-west2
 
   build_and_deploy:
     runs-on: ubuntu-latest
