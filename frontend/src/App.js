@@ -1,4 +1,6 @@
 import { useEffect, useState } from 'react';
+import 'bootstrap/dist/css/bootstrap.css';
+import Header from "./components/Header"
 
 function App() {
 
