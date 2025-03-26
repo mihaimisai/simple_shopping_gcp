@@ -6,7 +6,7 @@ function App() {
 
   useEffect( () => {
     
-    const fastApi = 'https://shopping-list-fastapi-94310770586.europe-west2.run.app'
+    const fastApi = FAST_API
 
     fetch(fastApi)
       .then(response => {
