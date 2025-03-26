@@ -24,9 +24,11 @@ function App() {
 
 
   return (
-    <div>
-      <h1> HELLO </h1>
-      <p>The response from FastAPI is: {message}</p>
+    <div className="App">
+      <div className="row d-flex text-center my-5 justify-content-center">
+        <h1> HELLO </h1>
+        <p>The response from FastAPI is: {message}</p>
+      </div>
     </div>
   );
 }
