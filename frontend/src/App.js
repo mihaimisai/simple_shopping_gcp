@@ -11,12 +11,11 @@ function App() {
     fetch(fastApi)
       .then(response => {
         if(response.ok) {
-          console.log(response.json())
           return response.json()
         }
       })
         .then(
-          data => {setMessage(data)}
+          data => {setMessage(JSON.stringify(data))}
         )
 
 
