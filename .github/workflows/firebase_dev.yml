@@ -2,8 +2,8 @@
 name: Deploy to Firebase Dev
 on: 
   push:
-    branches:
-      - dev
+    branches-igone:
+      - main
 jobs:
 
   backend_tests:
