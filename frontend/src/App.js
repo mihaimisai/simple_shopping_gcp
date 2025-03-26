@@ -5,10 +5,8 @@ function App() {
   const [message, setMessage] = useState('')
 
   useEffect( () => {
-    
-    const fastApi = FAST_API
 
-    fetch(fastApi)
+    fetch("/")
       .then(response => {
         if(response.ok) {
           return response.json()
