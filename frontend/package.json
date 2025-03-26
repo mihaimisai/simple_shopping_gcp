@@ -35,7 +35,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "proxy": "https://shopping-list-fastapi-94310770586.europe-west2.run.app"
-
+  }
 }
