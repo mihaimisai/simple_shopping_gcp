@@ -3,7 +3,7 @@ import { BrowserRouter, Routes } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.css';
 import Header from "./components/Header"
 import { AuthProvider } from './contexts/AuthContext';
-import LoginApp from './components/LoginApp';
+import LoginApp from './components/routes/LoginApp';
 
 function App() {
 
@@ -42,9 +42,12 @@ function App() {
           <Header />
           <h1> HELLO </h1>
           <p>The response from FastAPI is: {message}</p>
-          <LoginApp />
-          <Routes>
-          </Routes>
+          <div className="col">
+              <Routes>
+                <Route exact path='/login' element={<LoginApp />} />
+
+              </Routes>
+            </div>
         </div>
   
       </AuthProvider>
