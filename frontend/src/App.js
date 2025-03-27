@@ -14,14 +14,18 @@ function App() {
     const fastApi = "https://shopping-list-fastapi-94310770586.europe-west2.run.app"
 
     fetch(fastApi)
-      .then(response => {
-        if(response.ok) {
-          return response.json()
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
         }
+        return response.json(); // Ensure response is JSON
       })
-        .then(
-          data => {setMessage(JSON.stringify(data))}
-        )
+      .then((data) => setMessage(JSON.stringify(data)))
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+        setMessage("Failed to fetch data");
+      });
+  }, []);
 
 
 
