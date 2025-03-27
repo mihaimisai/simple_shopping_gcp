@@ -1,6 +1,6 @@
 
 
-export function SignUpForm({setMessage}) {
+function SignUpForm({setMessage}) {
 
     return <>
         <div>
@@ -8,3 +8,5 @@ export function SignUpForm({setMessage}) {
         </div>
     </>
 }
+
+export default SignUpForm
