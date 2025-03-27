@@ -1,5 +1,5 @@
 import React, {useState} from "react"
-import SignupForm from "../SignUpForm";
+import SignUpForm from "../SignUpForm";
 import LoginForm from "../LoginForm";
 
 function LoginApp() {
@@ -17,7 +17,7 @@ function LoginApp() {
             {showLogin ? 
                 <LoginForm setMessage={setMessage}/>
                 :
-                <SignupForm setMessage={setMessage}/>        
+                <SignUpForm setMessage={setMessage}/>        
             }
             
             <div>
