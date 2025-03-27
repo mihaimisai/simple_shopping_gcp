@@ -31,14 +31,14 @@ function App() {
   return ( <>
      <BrowserRouter>
       <AuthProvider>
-        <div className="Nav">
+        <div className="d-flex row gx-0 h-100">
           {/* Navigation menu & hamburger */}
           <div className="col-2 d-flex flex-column align-items-center text-center">
             <h3>Navigation</h3>
           </div>
         </div>
-        
-        <div className="row d-flex text-center my-5 justify-content-center">
+  
+        <div>
           <Header />
           <h1> HELLO </h1>
           <p>The response from FastAPI is: {message}</p>
