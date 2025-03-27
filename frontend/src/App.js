@@ -16,19 +16,15 @@ function App() {
     fetch(fastApi)
       .then((response) => {
         if (!response.ok) {
-          throw new Error(`HTTP error! Status: ${response.status}`);
+          throw new Error(`HTTP error! Status: ${response.status}`)
         }
         return response.json(); // Ensure response is JSON
       })
       .then((data) => setMessage(JSON.stringify(data)))
       .catch((error) => {
-        console.error("Error fetching data:", error);
-        setMessage("Failed to fetch data");
-      });
-  }, []);
-
-
-
+        console.error("Error fetching data:", error)
+        setMessage("Failed to fetch data")
+      })
   }, [])
 
 
