@@ -43,11 +43,11 @@ function App() {
           <h1> HELLO </h1>
           <p>The response from FastAPI is: {message}</p>
           <div className="col">
-              <Routes>
-                <Route exact path='/login' element={<LoginApp />} />
+            <Routes>
+              <Route exact path='/' element={<LoginApp />} />
 
-              </Routes>
-            </div>
+            </Routes>
+          </div>
         </div>
   
       </AuthProvider>
