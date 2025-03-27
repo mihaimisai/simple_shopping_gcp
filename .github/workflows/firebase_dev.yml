@@ -41,13 +41,10 @@ jobs:
 
       - name: Install Dependencies
         working-directory: ./frontend
-        run: npm ci
+        run: npm install
 
-      - name: Install Bootstrap
-        run: npm i bootstrap && npm i reactstrap react react-dom
-
-      - name: Install React Router DOM
-        run: npm install react-router-dom
+      - name: Install Bootstrap & React Router
+        run: npm install bootstrap reactstrap react-router-dom
 
       - name: Build React App
         working-directory: ./frontend
