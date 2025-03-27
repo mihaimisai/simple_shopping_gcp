@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { BrowserRouter, Routes } from 'react-router-dom';
+import { BrowserRouter,Route, Routes } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.css';
 import Header from "./components/Header"
 import { AuthProvider } from './contexts/AuthContext';
