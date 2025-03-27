@@ -31,7 +31,7 @@ function App() {
   return ( <>
      <BrowserRouter>
       <AuthProvider>
-        <div className="d-flex row gx-0 h-100">
+        <div className="text-white">
           {/* Navigation menu & hamburger */}
           <div className="col-2 d-flex flex-column align-items-center text-center">
             <h3>Navigation</h3>
