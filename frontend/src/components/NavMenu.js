@@ -6,8 +6,9 @@ function NavMenu() {
 
   // Navigation links
   const navBtn = {
-    Dashboard: '/',
-    Test: '/test'
+    'Dashboard': '/',
+    'My List': '/shoppinglist',
+    'My Profile': '/profile'
   }
 
   return (

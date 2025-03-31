@@ -5,9 +5,10 @@ import './app.css'
 import { AuthProvider } from './contexts/AuthContext';
 import LoginApp from './components/routes/LoginApp';
 import NavMenu from './components/NavMenu';
-import Test from './components/routes/Test'
+import ProfileApp from './components/routes/ProfileApp'
 import PrivateRoute from './components/PrivateRoute';
 import NotFoundRoute from './components/routes/NotFoundRoute';
+import ShoppingApp from './components/routes/ShoppingApp';
 
 function App() {
 
@@ -29,11 +30,11 @@ function App() {
   }, [])
 
 
-  return ( <>
+  return ( 
      <BrowserRouter>
       <AuthProvider>
-        <div className='d-flex vh-100 align-items-center justify-content-center bg-secondary'>
-          <div className='maincontainer bg-dark text-bg-dark d-flex flex-column'>
+        <div className=' d-flex align-items-center justify-content-center bg-secondary'>
+          <div className='min-vh-100 w-75 bg-dark text-bg-dark d-flex flex-column'>
             {/* Navigation menu & hamburger */}
             <NavMenu />
 
@@ -42,7 +43,8 @@ function App() {
             <Routes>
               <Route exact path='/' element={<LoginApp />} />
               <Route element={<PrivateRoute />}>
-                <Route path='/test' element={<Test />} />
+                <Route path='/shoppinglist' element={<ShoppingApp />} />
+                <Route path='/profile' element={<ProfileApp />} />
               </Route>
               {/* 404 route */}
               <Route path="*" element={<NotFoundRoute />} />
@@ -55,7 +57,7 @@ function App() {
       </AuthProvider>
      </BrowserRouter>
 
-    </>
+    
     
   );
 }

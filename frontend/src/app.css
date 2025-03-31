@@ -1,5 +1,10 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
 .maincontainer {
-    height: 80%;
-    width: 90%;
-}
+    min-height: 800px;
+  }
+  

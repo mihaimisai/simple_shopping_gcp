@@ -22,7 +22,7 @@ function SignupForm({setMessage}) {
         try {
             setLoading(true)
             await signup(email, password)
-            navigate('/test')
+            navigate('/shoppinglist')
         } catch(error) {
             setMessage(error.message)
         }
