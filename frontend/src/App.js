@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { BrowserRouter,Route, Routes } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './app.css'
@@ -8,8 +8,6 @@ import NavMenu from './components/NavMenu';
 import Test from './components/routes/Test'
 
 function App() {
-
-  const [message, setMessage] = useState('')
 
   useEffect( () => {
     
@@ -22,10 +20,9 @@ function App() {
         }
         return response.json(); // Ensure response is JSON
       })
-      .then((data) => setMessage(JSON.stringify(data)))
+      .then((data) => console.log(JSON.stringify(data)))
       .catch((error) => {
         console.error("Error fetching data:", error)
-        setMessage("Failed to fetch data")
       })
   }, [])
 
