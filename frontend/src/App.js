@@ -1,35 +1,62 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
+import { BrowserRouter,Route, Routes } from 'react-router-dom';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './app.css'
+import { AuthProvider } from './contexts/AuthContext';
+import LoginApp from './components/routes/LoginApp';
+import NavMenu from './components/NavMenu';
+import Test from './components/routes/Test'
+import PrivateRoute from './components/PrivateRoute';
+import NotFoundRoute from './components/routes/NotFoundRoute';
 
 function App() {
-
-  const [message, setMessage] = useState('')
 
   useEffect( () => {
     
     const fastApi = "https://shopping-list-fastapi-94310770586.europe-west2.run.app"
 
     fetch(fastApi)
-      .then(response => {
-        if(response.ok) {
-          return response.json()
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`)
         }
+        return response.json(); // Ensure response is JSON
       })
-        .then(
-          data => {setMessage(JSON.stringify(data))}
-        )
-
-
-
+      .then((data) => console.log(JSON.stringify(data)))
+      .catch((error) => {
+        console.error("Error fetching data:", error)
+      })
   }, [])
 
 
-  return (
-    <div className="App">
-      <div className="row d-flex text-center my-5 justify-content-center">
-        <h1> HELLO </h1>
-        <p>The response from FastAPI is: {message}</p>
-      </div>
-    </div>
+  return ( <>
+     <BrowserRouter>
+      <AuthProvider>
+        <div className='d-flex vh-100 align-items-center justify-content-center bg-secondary'>
+          <div className='maincontainer bg-dark text-bg-dark d-flex flex-column'>
+            {/* Navigation menu & hamburger */}
+            <NavMenu />
+
+            {/* Body where content is displayed */}
+            <div>
+            <Routes>
+              <Route exact path='/' element={<LoginApp />} />
+              <Route element={<PrivateRoute />}>
+                <Route path='/test' element={<Test />} />
+              </Route>
+              {/* 404 route */}
+              <Route path="*" element={<NotFoundRoute />} />
+              
+            </Routes>
+            </div>
+
+          </div>
+        </div>
+      </AuthProvider>
+     </BrowserRouter>
+
+    </>
+    
   );
 }
 
