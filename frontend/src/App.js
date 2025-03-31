@@ -40,11 +40,7 @@ function App() {
         <div className="text-white d-flex">
           
           <div className="row d-flex text-center my-5 justify-content-center">
-<<<<<<< HEAD
             <h4 className="text-white col">The response from FastAPI is: {message}</h4>
-=======
-            <Nav />
->>>>>>> e9809708784fddbb84c7a576a7b566c1babfdbc7
           </div>
           <p className="text-white col">The response from FastAPI is: {message}</p>
         </div>
