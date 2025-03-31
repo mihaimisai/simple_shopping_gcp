@@ -4,6 +4,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 import Header from "./components/Header"
 import { AuthProvider } from './contexts/AuthContext';
 import LoginApp from './components/routes/LoginApp';
+import Nav from './components/Nav';
 
 function App() {
 
@@ -31,12 +32,15 @@ function App() {
   return ( <>
      <BrowserRouter>
       <AuthProvider>
-        <div className="text-white d-flex">
+        <div className="vh-100 bg-secondary d-flex align-items-center justify-content-center">
           {/* Navigation menu & hamburger */}
+          <Nav />
+
+        </div>
+        <div className="text-white d-flex">
+          
           <div className="row d-flex text-center my-5 justify-content-center">
-            <h3>Navigation</h3>
-            <Header />
-            <p className="text-white col">The response from FastAPI is: {message}</p>
+            <h4 className="text-white col">The response from FastAPI is: {message}</h4>
           </div>
         </div>
          

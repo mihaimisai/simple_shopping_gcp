@@ -1,6 +1,7 @@
 import React, {useState} from "react"
 import SignUpForm from "../SignUpForm";
 import LoginForm from "../LoginForm";
+import Header from "../Header";
 
 function LoginApp() {
 
@@ -10,6 +11,7 @@ function LoginApp() {
     return (
         
         <div>
+            <Header />
             <button className="btn btn-warning" onClick={() => setShowLogin(!showLogin)}>
                 { showLogin ? 'Switch to Signup' : 'Switch to Login' }
             </button>
