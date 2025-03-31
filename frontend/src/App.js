@@ -7,6 +7,7 @@ import LoginApp from './components/routes/LoginApp';
 import NavMenu from './components/NavMenu';
 import Test from './components/routes/Test'
 import PrivateRoute from './components/PrivateRoute';
+import NotFoundRoute from './components/routes/NotFoundRoute';
 
 function App() {
 
@@ -43,6 +44,8 @@ function App() {
               <Route element={<PrivateRoute />}>
                 <Route path='/test' element={<Test />} />
               </Route>
+              {/* 404 route */}
+              <Route path="*" element={<NotFoundRoute />} />
               
             </Routes>
             </div>
