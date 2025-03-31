@@ -6,6 +6,7 @@ import { AuthProvider } from './contexts/AuthContext';
 import LoginApp from './components/routes/LoginApp';
 import NavMenu from './components/NavMenu';
 import Test from './components/routes/Test'
+import PrivateRoute from './components/PrivateRoute';
 
 function App() {
 
@@ -39,7 +40,10 @@ function App() {
             <div>
             <Routes>
               <Route exact path='/' element={<LoginApp />} />
-              <Route path='/test' element={<Test />} />
+              <Route element={<PrivateRoute />}>
+                <Route path='/test' element={<Test />} />
+              </Route>
+              
             </Routes>
             </div>
 

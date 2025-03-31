@@ -16,7 +16,7 @@ function LoginForm({setMessage}) {
         setMessage('')
         try {
             await login(email, password)
-            navigate('/')
+            navigate('/test')
         } catch(error) {
             setMessage(error.message)
         }
