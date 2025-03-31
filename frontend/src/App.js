@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
 import { BrowserRouter,Route, Routes } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.css';
-import Header from "./components/Header"
 import { AuthProvider } from './contexts/AuthContext';
 import LoginApp from './components/routes/LoginApp';
 import Nav from './components/Nav';
+import Test from './components/routes/Test'
 
 function App() {
 
