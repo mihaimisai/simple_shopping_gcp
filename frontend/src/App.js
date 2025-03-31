@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react';
 import { BrowserRouter,Route, Routes } from 'react-router-dom';
-import 'bootstrap/dist/css/bootstrap.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './app.css'
 import { AuthProvider } from './contexts/AuthContext';
 import LoginApp from './components/routes/LoginApp';
-import Nav from './components/Nav';
+import NavMenu from './components/NavMenu';
 import Test from './components/routes/Test'
 
 function App() {
@@ -32,29 +33,21 @@ function App() {
   return ( <>
      <BrowserRouter>
       <AuthProvider>
-        <div className="vh-100 bg-secondary d-flex align-items-center justify-content-center">
-          {/* Navigation menu & hamburger */}
-          <Nav />
+        <div className='d-flex vh-100 align-items-center justify-content-center bg-secondary'>
+          <div className='maincontainer bg-dark text-bg-dark d-flex flex-column'>
+            {/* Navigation menu & hamburger */}
+            <NavMenu />
 
-        </div>
-        <div className="text-white d-flex">
-          
-          <div className="row d-flex text-center my-5 justify-content-center">
-            <h4 className="text-white col">The response from FastAPI is: {message}</h4>
-          </div>
-          <p className="text-white col">The response from FastAPI is: {message}</p>
-        </div>
-         
-         {/* Body where content is displayed */}
-        <div >
-          <div>
+            {/* Body where content is displayed */}
+            <div>
             <Routes>
               <Route exact path='/' element={<LoginApp />} />
               <Route path='/test' element={<Test />} />
             </Routes>
+            </div>
+
           </div>
         </div>
-  
       </AuthProvider>
      </BrowserRouter>
 
