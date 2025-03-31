@@ -25,7 +25,7 @@ function LoginApp() {
                 }
             </div>
 
-            <div className="my-4">
+            <div className="m-4">
                 {message && <div className='alert alert-danger mt-5 col-4'>{message}</div>}
                 <p>Before using this app, you need to sign in.</p>
                 <p className="text-info">For testing purposes you can use email: test@test.com and password: 123456</p>
