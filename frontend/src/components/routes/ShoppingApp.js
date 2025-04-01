@@ -8,6 +8,10 @@ function ShoppingApp() {
     const fastApi = 'https://shopping-list-fastapi-94310770586.europe-west2.run.app'
 
     const [items, setItems] = useState([])
+
+    useEffect(() => {
+        fetchItems();
+        }, []);
     
     const fetchItems = () => {
     fetch(fastApi)
@@ -16,14 +20,12 @@ function ShoppingApp() {
                 return response.json()
             }
         }).then(data=>{
-            //console.log(data)
-            setItems(JSON.stringify(data))
+            console.log(data)
+            setItems(JSON.stringify(data.message))
         })
     }
 
-    useEffect(() => {
-        fetchItems();
-        }, []);
+    
 
     //Buttons functionality
     const addItem = async () => {

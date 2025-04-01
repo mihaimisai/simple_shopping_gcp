@@ -5,7 +5,10 @@ import ShoppingItem from './ShoppingItem';
 
 function ShoppingList({items, onDelete}) {
 
-    const itemList = items
+    console.log(items)
+    let itemList = []
+    itemList += items
+    console.log(itemList)
 
     return (
         <div className='d-flex justify-content-center align-items-center'>

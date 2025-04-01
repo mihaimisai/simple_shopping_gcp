@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import { BrowserRouter,Route, Routes } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './app.css'
@@ -11,24 +10,6 @@ import NotFoundRoute from './components/routes/NotFoundRoute';
 import ShoppingApp from './components/routes/ShoppingApp';
 
 function App() {
-
-  useEffect( () => {
-    
-    const fastApi = "https://shopping-list-fastapi-94310770586.europe-west2.run.app"
-
-    fetch(fastApi)
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error(`HTTP error! Status: ${response.status}`)
-        }
-        return response.json(); // Ensure response is JSON
-      })
-      .then((data) => console.log(JSON.stringify(data)))
-      .catch((error) => {
-        console.error("Error fetching data:", error)
-      })
-  }, [])
-
 
   return ( 
      <BrowserRouter>
