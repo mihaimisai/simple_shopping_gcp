@@ -1,31 +1,51 @@
 import { useState, useEffect } from 'react'
+import AddItemForm from '../AddItemForm'
+import RefreshButton from '../RefreshButton'
+import ShoppingList from '../ShoppingList'
 
 function ShoppingApp() {
 
-    const [message, setMessage] = useState('')
-
-  useEffect( () => {
-    
     const fastApi = 'https://shopping-list-fastapi-94310770586.europe-west2.run.app'
 
+    const [items, setItems] = useState([])
+    
+    const fetchItems = () => {
     fetch(fastApi)
-      .then(response => {
-        if(response.ok) {
-          return response.json()
-        }
-      })
-        .then(
-          data => {setMessage(JSON.stringify(data))}
-        )
-  }, [])
+        .then(response => {
+            if(response.ok) {
+                return response.json()
+            }
+        }).then(data=>{
+            //console.log(data)
+            setItems(JSON.stringify(data))
+        })
+    }
 
+    useEffect(() => {
+        fetchItems();
+        }, []);
 
-  return (
-    <div className='d-flex flex-column align-items-center my-4'>
-      <h3> My List </h3>
-      <p>The response from FastAPI is: {message}</p>
-    </div>
-  );
+    //Buttons functionality
+    const addItem = async () => {
+        console.log('adding item')
+    }
+
+    const deleteItem = async () => {
+        console.log('deleting item')
+    }
+    
+
+    return (
+        <div className='d-flex flex-column align-items-center my-4'>
+
+            <AddItemForm onAdd={addItem}/>
+
+            <RefreshButton />
+
+            <ShoppingList items={items} onDelete={deleteItem} />
+
+        </div>
+    );
 }
 
 export default ShoppingApp
