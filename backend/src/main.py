@@ -1,5 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from firebase_utils import db
 
 app = FastAPI()
 
@@ -24,7 +25,12 @@ async def check():
 
 @app.get("/retrievelist")
 async def retrieve():
-    return {}
+    items = []
+    items_ref = db.collection("items")
+    docs = items_ref.get()
+    for doc in docs:
+        items.append(doc.to_dict())
+    return items
 
 @app.get("/add")
 async def add():

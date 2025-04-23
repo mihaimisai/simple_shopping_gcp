@@ -3,7 +3,8 @@ from backend.src.main import app
 
 client = TestClient(app)
 
-def test_root():
+def test_healthcheck():
     response = client.get("/healthcheck")
     assert response.status_code == 200
     assert response.json() == {"status": 200}
+    
