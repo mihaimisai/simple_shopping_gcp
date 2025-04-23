@@ -12,6 +12,8 @@ service_account_json = os.environ.get(
     "FIREBASE_SERVICE_ACCOUNT_SIMPLE_SHOPPING_GCP"
 )  # noqa
 
+db = None
+
 if service_account_json:
     try:
         service_account_info = json.loads(service_account_json)
