@@ -1,8 +1,9 @@
 
-name: Deploy to Firebase Dev
+name: Test Backend and Preview Frontend
 on: 
   push:
-    branches:
+    branches-ignore:
+      - main
       - dev
 jobs:
 
@@ -29,30 +30,9 @@ jobs:
       - name: Run tests
         run: make run-tests
 
-  deploy_cloud_run:
-    runs-on: ubuntu-latest
-    needs: backend_tests
-
-    steps:
-
-      - name: Checkout repo
-        uses: actions/checkout@v4
-
-      - name: Google Auth
-        uses: google-github-actions/auth@v2
-        with: 
-          credentials_json: ${{ secrets.SA_CREDS }}
-
-      - name: 'Deploy to Cloud Run'
-        uses: 'google-github-actions/deploy-cloudrun@v2'
-        with:
-          service: 'shopping-list-fastapi'
-          region: 'europe-west2'
-          source: './backend'
-
   build_and_preview:
     runs-on: ubuntu-latest
-    needs: deploy_cloud_run
+    needs: backend-tests
     
     steps:
       
