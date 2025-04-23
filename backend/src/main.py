@@ -21,13 +21,13 @@ app.add_middleware(
 )
 
 # Dependency to verify the Firebase ID token
-async def get_current_user(token: str): #you should get token via request header
+async def get_current_user(token: str):
     try:
         decoded_token = auth.verify_id_token(token)
         uid = decoded_token['uid']
         return uid
     except Exception as e:
-        raise HTTPException(status_code=401, detail="Invalid authentication credentials")
+        raise HTTPException(status_code=401, detail=f"Invalid authentication credentials: {e}")
 
 @app.get("/healthcheck")
 async def check():
