@@ -23,4 +23,4 @@ if service_account_json:
     except (ValueError, KeyError, TypeError) as e:
         logging.error(f"Error connecting to Firestore: {e}")
 else:
-    logging.error("FIREBASE_SERVICE_ACCOUNT_KEY environment variable not found.")
+    logging.error("Service account key environment variable not found.")
