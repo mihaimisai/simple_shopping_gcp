@@ -5,7 +5,7 @@ import ShoppingList from '../ShoppingList'
 
 function ShoppingApp() {
 
-    const fastApi = 'https://shopping-list-fastapi-94310770586.europe-west2.run.app'
+    const fastApi = 'https://shopping-list-fastapi-94310770586.europe-west2.run.app/retrievelist'
 
     const [items, setItems] = useState([])
 
@@ -21,7 +21,7 @@ function ShoppingApp() {
             }
         }).then(data=>{
             console.log(data)
-            setItems(JSON.stringify(data.message))
+            setItems(data)
         })
     }
 
