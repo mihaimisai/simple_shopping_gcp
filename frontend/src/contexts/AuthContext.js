@@ -11,9 +11,6 @@ import {
     deleteUser,
     signOut
 } from "firebase/auth"
-import { getFirestore, doc, setDoc } from "firebase/firestore"
-
-const db = getFirestore(app)
 
 const AuthContext = createContext()
 
@@ -30,14 +27,6 @@ export const AuthProvider = ({ children }) => {
 
   const signup = (email, password) => {
     return createUserWithEmailAndPassword(auth, email, password)
-      .then(async cred => {
-        const userRef = doc(db, "users", cred.user.uid)
-        await setDoc(userRef, {})
-      })
-      .catch((error) => {
-        console.error("Signup error:", error)
-        throw error
-      })
   }
 
   function login(email, password) {
