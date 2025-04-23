@@ -50,7 +50,7 @@ jobs:
           region: 'europe-west2'
           source: './backend'
           env-vars:
-            FIREBASE_SERVICE_ACCOUNT_SIMPLE_SHOPPING_GCP: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_SIMPLE_SHOPPING_GCP }}
+            FIREBASE_SERVICE_ACCOUNT_SIMPLE_SHOPPING_GCP=${{ secrets.FIREBASE_SERVICE_ACCOUNT_SIMPLE_SHOPPING_GCP }}
 
   build_and_preview:
     runs-on: ubuntu-latest
