@@ -1,5 +1,4 @@
-
-import React, { createContext, useContext, useState, useEffect}  from "react";
+import React, { createContext, useContext, useState, useEffect}  from "react"
 import app from "../firebase-config"
 import {
     getAuth,
@@ -12,22 +11,31 @@ import {
     deleteUser,
     signOut
 } from "firebase/auth"
+import { doc, setDoc } from "firebase/firestore"
 
-const AuthContext = createContext();
+const AuthContext = createContext()
 
 export const useAuth = () => {
-  return useContext(AuthContext);
+  return useContext(AuthContext)
 };
 
 export const AuthProvider = ({ children }) => {
 
-  const [currentUser, setCurrentUser] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [currentUser, setCurrentUser] = useState(null)
+  const [loading, setLoading] = useState(true)
 
-  const auth = getAuth(app);
+  const auth = getAuth(app)
 
   const signup = (email, password) => {
-    return createUserWithEmailAndPassword(auth, email, password);
+    return createUserWithEmailAndPassword(auth, email, password)
+      .then(async cred => {
+        const userRef = doc(db, "users", cred.user.uid)
+        await setDoc(userRef, {})
+      })
+      .catch((error) => {
+        console.error("Signup error:", error)
+        throw error
+      })
   }
 
   function login(email, password) {
@@ -58,12 +66,12 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
-      setCurrentUser(user);
-      setLoading(false);
+      setCurrentUser(user)
+      setLoading(false)
     });
 
-    return unsubscribe; // Cleanup subscription on unmount
-  }, [auth]);
+    return unsubscribe // Cleanup subscription on unmount
+  }, [auth])
 
     const value = {
         currentUser,
@@ -80,5 +88,5 @@ export const AuthProvider = ({ children }) => {
         <AuthContext.Provider value={value}>
           {!loading && children}
         </AuthContext.Provider>
-      );
-};
+      )
+}

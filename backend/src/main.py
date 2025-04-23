@@ -27,11 +27,7 @@ async def check():
 
 @app.get("/retrievelist")
 async def retrieve():
-    items = []
-    items_ref = db.collection("users")
-    docs = items_ref.stream()
-    for doc in docs:
-        items.append(doc.to_dict())
+    items = [1,2,3]
     return items
 
 
