@@ -11,7 +11,9 @@ import {
     deleteUser,
     signOut
 } from "firebase/auth"
-import { doc, setDoc } from "firebase/firestore"
+import { getFirestore, doc, setDoc } from "firebase/firestore"
+
+const db = getFirestore(app)
 
 const AuthContext = createContext()
 
