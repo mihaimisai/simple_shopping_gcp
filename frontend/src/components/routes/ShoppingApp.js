@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import AddItemForm from '../AddItemForm'
 import RefreshButton from '../RefreshButton'
 import ShoppingList from '../ShoppingList'
-import { getAuth } from "firebase/auth"
+
 
 function ShoppingApp() {
 
