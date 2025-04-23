@@ -21,10 +21,13 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+
 # Dependency to verify the Firebase ID tokem
 async def get_current_user(authorization: str = Header(None)):
     if authorization is None:
-        raise HTTPException(status_code=401, detail="Authorization header missing")
+        raise HTTPException(
+            status_code=401, detail="Authorization header missing"
+        )  # noqa
 
     try:
         scheme, token = authorization.split(" ")
@@ -33,7 +36,7 @@ async def get_current_user(authorization: str = Header(None)):
                 status_code=401, detail="Invalid authentication scheme"
             )
         decoded_token = auth.verify_id_token(token)
-        uid = decoded_token['uid']
+        uid = decoded_token["uid"]
         return uid
     except Exception as e:
         raise HTTPException(
