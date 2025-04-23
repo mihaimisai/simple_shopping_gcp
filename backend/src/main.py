@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from .firebase_utils import db
+# from .firebase_utils import db
 
 app = FastAPI()
 
