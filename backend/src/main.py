@@ -18,7 +18,19 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-@app.get("/")
-async def root():
-    return {"message": "Hello, World!"}
+@app.get("/healthcheck")
+async def check():
+    return {"status": 200}
+
+@app.get("/retrievelist")
+async def retrieve():
+    return {}
+
+@app.get("/add")
+async def add():
+    return {}
+
+@app.get("/delete")
+async def delete():
+    return {}
 
