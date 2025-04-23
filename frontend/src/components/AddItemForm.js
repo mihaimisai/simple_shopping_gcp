@@ -1,24 +1,54 @@
-import React, { useState } from 'react';
+import React, { useState } from 'react'
+import { getAuth } from 'firebase/auth'
+import addItemToFirestore from './lib/addItemToFirestore'
 
 const AddItemForm = ({ onAdd }) => {
-  const [itemName, setItemName] = useState('');
+  const [itemName, setItemName] = useState('')
+  const [errorMessage, setErrorMessage] = useState('')
+  const [isLoading, setIsLoading] = useState(false)
+  const auth = getAuth()
+  const user = auth.currentUser
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    if (itemName.trim() === '') return;
-    onAdd(itemName.toLowerCase());
-    setItemName('');
+    if (itemName.trim() === '') return
+
+    if (!user) {
+      setErrorMessage('You must be logged in to add items.')
+      return
+    }
+
+    setIsLoading(true)
+    setErrorMessage('')
+
+    try {
+
+      const itemId = await addItemToFirestore(itemName)
+
+      onAdd(itemId)
+
+      setItemName('')
+    } catch (error) {
+      console.error("Error adding item:", error);
+      setErrorMessage('Failed to add item. Please try again.');
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
     <form onSubmit={handleSubmit}>
+      {errorMessage && <p className="error">{errorMessage}</p>}
       <input
         type="text"
         value={itemName}
         onChange={(e) => setItemName(e.target.value)}
         autoFocus
+        disabled={isLoading}
       />
-      <button type="submit" className='btn btn-success mx-2'>Add Item</button>
+      <button type="submit" className='btn btn-success mx-2' disabled={isLoading}>
+        {isLoading ? 'Adding...' : 'Add Item'}
+      </button>
     </form>
   );
 };

@@ -8,30 +8,42 @@ function ShoppingApp() {
 
     const fastApi = 'https://shopping-list-fastapi-94310770586.europe-west2.run.app/retrievelist'
 
-    const auth = getAuth();
-    const user = auth.currentUser;
-
-    console.log(user)
-
     const [items, setItems] = useState([])
 
     useEffect(() => {
         fetchItems();
         }, []);
     
-    const fetchItems = () => {
-    fetch(fastApi)
-        .then(response => {
-            if(response.ok) {
-                return response.json()
+    const fetchItems = async () => {
+        const auth = getAuth();
+        const user = auth.currentUser;
+        
+        if (!user) {
+            console.warn("User not logged in");
+            return;
+        }
+        
+        try {
+            const token = await user.getIdToken();
+            
+            const response = await fetch(fastApi, {
+                headers: {
+                  Authorization: `Bearer ${token}`,
+                },
+              })
+              
+        
+            if (!response.ok) {
+            throw new Error("Failed to fetch items");
             }
-        }).then(data=>{
-            console.log(data)
-            setItems(data)
-        })
-    }
+        
+            const data = await response.json();
+            setItems(data);
+        } catch (error) {
+            console.error("Error fetching items:", error);
+        }
+        };
 
-    
 
     //Buttons functionality
     const addItem = async () => {
