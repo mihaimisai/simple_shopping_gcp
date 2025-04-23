@@ -1,8 +1,6 @@
-from fastapi import FastAPI, Depends, HTTPException
+from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from .firebase_utils import db
-from firebase_admin import auth
-from fastapi import Header
 
 app = FastAPI()
 
@@ -22,37 +20,15 @@ app.add_middleware(
 )
 
 
-# Dependency to verify the Firebase ID tokem
-async def get_current_user(authorization: str = Header(None)):
-    if authorization is None:
-        raise HTTPException(
-            status_code=401, detail="Authorization header missing"
-        )  # noqa
-
-    try:
-        scheme, token = authorization.split(" ")
-        if scheme.lower() != "bearer":
-            raise HTTPException(
-                status_code=401, detail="Invalid authentication scheme"
-            )
-        decoded_token = auth.verify_id_token(token)
-        uid = decoded_token["uid"]
-        return uid
-    except Exception as e:
-        raise HTTPException(
-            status_code=401, detail=f"Invalid authentication credentials: {e}"
-        )
-
-
 @app.get("/healthcheck")
 async def check():
     return {"status": 200}
 
 
 @app.get("/retrievelist")
-async def retrieve(user_id: str = Depends(get_current_user)):
+async def retrieve():
     items = []
-    items_ref = db.collection("users").document(user_id).collection("items")
+    items_ref = db.collection("users")
     docs = items_ref.stream()
     for doc in docs:
         items.append(doc.to_dict())
