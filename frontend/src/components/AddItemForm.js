@@ -22,18 +22,15 @@ const AddItemForm = ({ onAdd }) => {
     setErrorMessage('')
 
     try {
-      // Call the addItemToFirestore function
+
       const itemId = await addItemToFirestore(itemName)
 
-      // Call the onAdd function passed as a prop
       onAdd(itemId)
 
-      // Clear the input field
       setItemName('')
     } catch (error) {
       console.error("Error adding item:", error);
       setErrorMessage('Failed to add item. Please try again.');
-      // Handle errors as needed
     } finally {
       setIsLoading(false);
     }

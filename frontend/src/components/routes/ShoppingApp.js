@@ -25,12 +25,13 @@ function ShoppingApp() {
         
         try {
             const token = await user.getIdToken();
-        
+            
             const response = await fetch(fastApi, {
-            headers: {
-                Authorization: token,
-            },
-            });
+                headers: {
+                  Authorization: `Bearer ${token}`,
+                },
+              })
+              
         
             if (!response.ok) {
             throw new Error("Failed to fetch items");

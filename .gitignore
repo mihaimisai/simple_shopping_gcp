@@ -4,3 +4,5 @@
 /pytest.ini
 /venv/
 dev_key.json
+firebase.rules
+firestore.indexes.json
