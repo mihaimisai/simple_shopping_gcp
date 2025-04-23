@@ -15,34 +15,20 @@ function ShoppingApp() {
         }, []);
     
     const fetchItems = async () => {
-        const auth = getAuth();
-        const user = auth.currentUser;
-        
-        if (!user) {
-            console.warn("User not logged in");
-            return;
-        }
-        
+
         try {
-            const token = await user.getIdToken();
-            
-            const response = await fetch(fastApi, {
-                headers: {
-                  Authorization: `Bearer ${token}`,
-                },
-              })
-              
+            const response = await fetch(fastApi)
         
             if (!response.ok) {
             throw new Error("Failed to fetch items");
             }
         
-            const data = await response.json();
-            setItems(data);
+            const data = await response.json()
+            setItems(data)
         } catch (error) {
-            console.error("Error fetching items:", error);
+            console.error("Error fetching items:", error)
         }
-        };
+        }
 
 
     //Buttons functionality
