@@ -1,6 +1,7 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Depends, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from .firebase_utils import db
+from firebase_admin import auth
 
 app = FastAPI()
 
@@ -19,6 +20,14 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+# Dependency to verify the Firebase ID token
+async def get_current_user(token: str):
+    try:
+        decoded_token = auth.verify_id_token(token)
+        uid = decoded_token['uid']
+        return uid
+    except Exception as e:
+        raise HTTPException(status_code=401, detail=f"Invalid authentication credentials: {e}")
 
 @app.get("/healthcheck")
 async def check():
@@ -26,10 +35,10 @@ async def check():
 
 
 @app.get("/retrievelist")
-async def retrieve():
+async def retrieve(user_id: str = Depends(get_current_user)):
     items = []
-    items_ref = db.collection("items")
-    docs = items_ref.get()
+    items_ref = db.collection("users").document(user_id).collection("items")
+    docs = items_ref.stream()
     for doc in docs:
         items.append(doc.to_dict())
     return items
