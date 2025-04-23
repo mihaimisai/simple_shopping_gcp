@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import AddItemForm from '../AddItemForm'
 import RefreshButton from '../RefreshButton'
 import ShoppingList from '../ShoppingList'
-
+import { getAuth } from "firebase/auth"
 
 function ShoppingApp() {
 
@@ -14,19 +14,35 @@ function ShoppingApp() {
         fetchItems();
         }, []);
     
-    const fetchItems = () => {
-    fetch(fastApi)
-        .then(response => {
-            if(response.ok) {
-                return response.json()
+    const fetchItems = async () => {
+        const auth = getAuth();
+        const user = auth.currentUser;
+        
+        if (!user) {
+            console.warn("User not logged in");
+            return;
+        }
+        
+        try {
+            const token = await user.getIdToken();
+        
+            const response = await fetch(fastApi, {
+            headers: {
+                Authorization: token,
+            },
+            });
+        
+            if (!response.ok) {
+            throw new Error("Failed to fetch items");
             }
-        }).then(data=>{
-            console.log(data)
-            setItems(data)
-        })
-    }
+        
+            const data = await response.json();
+            setItems(data);
+        } catch (error) {
+            console.error("Error fetching items:", error);
+        }
+        };
 
-    
 
     //Buttons functionality
     const addItem = async () => {
