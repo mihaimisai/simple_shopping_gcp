@@ -14,7 +14,7 @@ requirements: environment
 # Format and check
 
 black:
-	source backend/venv/bin/activate && black --line-length=79 backend/src/ backend/test/
+	source backend/venv/bin/activate && black --line-length=85 backend/src/ backend/test/
 black-check:
 	source backend/venv/bin/activate && black --check --line-length=85 backend/src/ backend/test/
 flake8:
