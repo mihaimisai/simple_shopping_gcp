@@ -4,6 +4,8 @@ import logging
 # Configure logging
 logging.basicConfig(level=logging.INFO)
 
+db = None
+
 try:
     db = firestore.Client()
     logging.info("Connected to Firestore")
