@@ -28,8 +28,6 @@ jobs:
 
       - name: Run tests
         run: make run-tests
-        env:
-          FIREBASE_SERVICE_ACCOUNT_SIMPLE_SHOPPING_GCP: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_SIMPLE_SHOPPING_GCP }}
 
   deploy_cloud_run:
     runs-on: ubuntu-latest
@@ -51,6 +49,8 @@ jobs:
           service: 'shopping-list-fastapi'
           region: 'europe-west2'
           source: './backend'
+          env-vars:
+            FIREBASE_SERVICE_ACCOUNT_SIMPLE_SHOPPING_GCP: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_SIMPLE_SHOPPING_GCP }}
 
   build_and_preview:
     runs-on: ubuntu-latest
