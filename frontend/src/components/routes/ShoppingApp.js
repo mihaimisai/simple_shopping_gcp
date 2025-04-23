@@ -2,16 +2,11 @@ import { useState, useEffect } from 'react'
 import AddItemForm from '../AddItemForm'
 import RefreshButton from '../RefreshButton'
 import ShoppingList from '../ShoppingList'
-import { getAuth } from "firebase/auth"
+
 
 function ShoppingApp() {
 
     const fastApi = 'https://shopping-list-fastapi-94310770586.europe-west2.run.app/retrievelist'
-
-    const auth = getAuth();
-    const user = auth.currentUser;
-
-    console.log(user)
 
     const [items, setItems] = useState([])
 

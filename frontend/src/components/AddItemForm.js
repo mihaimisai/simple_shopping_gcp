@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { getAuth } from 'firebase/auth'
-import addItemToFirestore from '../lib/addItemToFirestore'
+import addItemToFirestore from './lib/addItemToFirestore'
 
 const AddItemForm = ({ onAdd }) => {
   const [itemName, setItemName] = useState('')

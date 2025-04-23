@@ -1,33 +1,29 @@
+import { getFirestore, collection, addDoc } from "firebase/firestore";
+import { getAuth } from "firebase/auth";
 
-// import { getFirestore, collection, addDoc } from "firebase/firestore";
-// import { getAuth } from "firebase/auth";
-
-// const db = getFirestore();
+const db = getFirestore();
 
 async function addItemToFirestore(itemName) {
 
-    console.log('Item trying to add is:', itemName)
-//   const auth = getAuth();
-//   const user = auth.currentUser;
+  const auth = getAuth();
+  const user = auth.currentUser;
 
-//   if (!user) {
-//     throw new Error("No user is currently signed in.");
-//   }
+  if (!user) {
+    throw new Error("No user is currently signed in.");
+  }
 
-//   const userId = user.uid;
+  const userId = user.uid;
 
-//   try {
-//     const itemsRef = collection(db, "users", userId, "items");
-//     const docRef = await addDoc(itemsRef, {
-//       name: itemName,
-//       // You can add other item properties here (e.g., timestamp, image URL, etc.)
-//     });
-//     console.log("Document written with ID: ", docRef.id);
-//     return docRef.id; // Return the ID of the newly created document
-//   } catch (e) {
-//     console.error("Error adding document: ", e);
-//     throw e; // Re-throw the error to signal that something went wrong
-//   }
+  try {
+    const itemsRef = collection(db, "users", userId, "items");
+    const docRef = await addDoc(itemsRef, {
+      name: itemName,
+    });
+    console.log("Document written with ID: ", docRef.id)
+  } catch (e) {
+    console.error("Error adding document: ", e)
+    throw e
+  }
 }
 
 export default addItemToFirestore;
