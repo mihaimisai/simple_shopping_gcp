@@ -1,8 +1,8 @@
-from fastapi import FastAPI, Request, Depends, status, HTTPException
+from fastapi import FastAPI, Depends, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from .firebase_utils import db, logging
-from firebase_admin import auth
 from pydantic import BaseModel
+from .get_current_user import get_current_user
 
 app = FastAPI()
 
@@ -20,33 +20,6 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
-
-async def get_current_user(request: Request):
-
-    auth_header = request.headers.get("Authorization")
-
-    if not auth_header or not auth_header.startswith("Bearer "):
-        logging.error("Invalid or missing auth token")
-        raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Invalid or missing auth token",
-        )
-
-    token = auth_header.split("Bearer ")[1]
-
-    try:
-
-        decoded_token = auth.verify_id_token(token)
-        user_id = decoded_token["uid"]
-        return user_id
-
-    except Exception as e:
-        logging.error(f"Token verification failed: {str(e)}")
-        raise HTTPException(
-            status_code=401,
-            detail=f"Token verification failed: {str(e)}",
-        )
 
 
 @app.get("/healthcheck")
@@ -88,14 +61,10 @@ async def add(item: Item, current_user=Depends(get_current_user)):
             item.itemName
         )  # noqa
 
-        return {"message": "Item added successfully"}
+        return "Item added successfully"
 
     except Exception as e:
-        logging.error(f"Error adding item: {e}")
-        raise HTTPException(
-            status_code=500,
-            detail=f"Error adding item: {e}",
-        )
+        return f"Error adding item: {e}"
 
 
 @app.get("/delete")

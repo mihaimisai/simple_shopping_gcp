@@ -11,6 +11,7 @@ function ShoppingApp() {
     const fastApi = 'https://shopping-list-fastapi-94310770586.europe-west2.run.app/retrievelist'
     const { currentUser, getToken } = useAuth()
     const [items, setItems] = useState([])
+    const [errorMessage, setErrorMessage] = useState('')
 
     const fetchItems = useCallback(async () => {
         const token = await getToken()
@@ -23,8 +24,10 @@ function ShoppingApp() {
     
           const data = await response.json()
           setItems(data)
+
         } catch (error) {
           console.error('Error fetching items:', error)
+          setErrorMessage(error)
         }
       }, [getToken])
 
@@ -42,7 +45,12 @@ function ShoppingApp() {
     return (
         <div className='d-flex flex-column align-items-center my-4'>
             <h4>Hello {currentUser.displayName}!</h4>
-            <AddItemForm onAdd={handleAdd}/>
+            {errorMessage && <p className="error">{errorMessage}</p>}
+            <AddItemForm 
+                onAdd={handleAdd}
+                errorMessage={errorMessage}
+                setErrorMessage={setErrorMessage}
+            />
 
             <RefreshButton />
 

@@ -1,8 +1,7 @@
 import React, { useState } from 'react'
 
-const AddItemForm = ({ onAdd }) => {
+const AddItemForm = ({ onAdd, errorMessage, setErrorMessage}) => {
   const [itemName, setItemName] = useState('')
-  const [errorMessage, setErrorMessage] = useState('')
   const [isLoading, setIsLoading] = useState(false)
 
 
@@ -20,7 +19,7 @@ const AddItemForm = ({ onAdd }) => {
       setItemName('')
     } catch (error) {
       console.error("Error adding item:", error);
-      setErrorMessage('Failed to add item. Please try again.');
+      setErrorMessage(error);
     } finally {
       setIsLoading(false);
     }
@@ -28,7 +27,6 @@ const AddItemForm = ({ onAdd }) => {
 
   return (
     <form onSubmit={handleSubmit}>
-      {errorMessage && <p className="error">{errorMessage}</p>}
       <input
         type="text"
         value={itemName}
