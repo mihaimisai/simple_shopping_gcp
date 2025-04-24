@@ -2,12 +2,12 @@ import { useState, useEffect } from 'react'
 import AddItemForm from '../AddItemForm'
 import RefreshButton from '../RefreshButton'
 import ShoppingList from '../ShoppingList'
-
+import { useAuth } from '../../contexts/AuthContext'
 
 function ShoppingApp() {
 
     const fastApi = 'https://shopping-list-fastapi-94310770586.europe-west2.run.app/retrievelist'
-
+    const [currentUser] = useAuth()
     const [items, setItems] = useState([])
 
     useEffect(() => {
@@ -15,7 +15,7 @@ function ShoppingApp() {
         }, []);
     
     const fetchItems = async () => {
-
+        
         try {
             const response = await fetch(fastApi)
         
@@ -43,7 +43,7 @@ function ShoppingApp() {
 
     return (
         <div className='d-flex flex-column align-items-center my-4'>
-
+            <h4>Hello {currentUser.displayName}</h4>
             <AddItemForm onAdd={addItem}/>
 
             <RefreshButton />
