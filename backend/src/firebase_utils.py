@@ -16,4 +16,6 @@ try:
     db = firestore.client()
     logging.info("Connected to Firestore")
 except Exception as e:
-    logging.error(f"Error connecting to Firestore or initializing Firebase Admin SDK: {e}")
+    logging.error(
+        f"Error connecting to Firestore or initializing Firebase Admin SDK: {e}"  # noqa
+    )

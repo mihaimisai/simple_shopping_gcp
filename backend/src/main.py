@@ -29,9 +29,9 @@ async def check():
 @app.get("/retrievelist")
 async def retrieve(request: Request):
     auth_header = request.headers.get("Authorization").split("Bearer ")[1]
-    print('Auth header: ', auth_header)
+    print("Auth header: ", auth_header)
     decoded_token = auth.verify_id_token(auth_header)
-    print('Decoded token: ', decoded_token)
+    print("Decoded token: ", decoded_token)
     user_doc = db.collection("users").stream()
 
     return user_doc
