@@ -1,31 +1,21 @@
 import React, { useState } from 'react'
-import { getAuth } from 'firebase/auth'
-import addItemToFirestore from './lib/addItemToFirestore'
 
 const AddItemForm = ({ onAdd }) => {
   const [itemName, setItemName] = useState('')
   const [errorMessage, setErrorMessage] = useState('')
   const [isLoading, setIsLoading] = useState(false)
-  const auth = getAuth()
-  const user = auth.currentUser
+
 
   const handleSubmit = async (e) => {
     e.preventDefault()
     if (itemName.trim() === '') return
-
-    if (!user) {
-      setErrorMessage('You must be logged in to add items.')
-      return
-    }
 
     setIsLoading(true)
     setErrorMessage('')
 
     try {
 
-      const itemId = await addItemToFirestore(itemName)
-
-      onAdd(itemId)
+      await onAdd(itemName)
 
       setItemName('')
     } catch (error) {

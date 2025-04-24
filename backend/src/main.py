@@ -2,6 +2,7 @@ from fastapi import FastAPI, Request, Depends, status, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from .firebase_utils import db
 from firebase_admin import auth
+from pydantic import BaseModel
 
 app = FastAPI()
 
@@ -71,9 +72,13 @@ async def retrieve(current_user=Depends(get_current_user)):
             status_code=500, detail=f"Error retrieving data: {e}"
         )  # noqa
 
+class Item(BaseModel):
+    itemName: str
 
-@app.get("/add")
-async def add():
+@app.post("/add")
+async def add(item: Item):
+    item_name = item.itemName
+    print('Adding item: ', item_name)
     return {}
 
 
