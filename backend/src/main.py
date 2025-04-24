@@ -72,13 +72,15 @@ async def retrieve(current_user=Depends(get_current_user)):
             status_code=500, detail=f"Error retrieving data: {e}"
         )  # noqa
 
+
 class Item(BaseModel):
     itemName: str
+
 
 @app.post("/add")
 async def add(item: Item):
     item_name = item.itemName
-    print('Adding item: ', item_name)
+    print("Adding item: ", item_name)
     return {}
 
 
