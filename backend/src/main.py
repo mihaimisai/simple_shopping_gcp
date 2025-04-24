@@ -78,10 +78,21 @@ class Item(BaseModel):
 
 
 @app.post("/add")
-async def add(item: Item):
-    item_name = item.itemName
-    print("Adding item: ", item_name)
-    return {}
+async def add(item: Item, current_user=Depends(get_current_user)):
+
+    try:
+
+        db.collection("users").document(current_user).collection("items").add(
+            item.itemName
+        )  # noqa
+
+        return {"message": "Item added successfully"}
+
+    except Exception as e:
+        raise HTTPException(
+            status_code=500,
+            detail=f"Error adding item: {e}",
+        )
 
 
 @app.get("/delete")

@@ -41,3 +41,18 @@ def test_get_current_user_invalid_token(mock_verify):
 def test_retrieve_list_empty_list():
 
     pass
+
+
+def test_retrieve_list_one_item_list():
+
+    pass
+
+
+def test_retrieve_list_multiple_items_list():
+
+    pass
+
+
+def test_retrieve_list_error():
+
+    pass
