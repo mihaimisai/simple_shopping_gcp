@@ -1,7 +1,7 @@
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from .firebase_utils import db
-
+from firebase_admin import auth
 
 app = FastAPI()
 
@@ -28,9 +28,10 @@ async def check():
 
 @app.get("/retrievelist")
 async def retrieve(request: Request):
-    auth_header = request.headers.get("Authorization")
-    print(auth_header)
-
+    auth_header = request.headers.get("Authorization").split("Bearer ")[1]
+    print('Auth header: ', auth_header)
+    decoded_token = auth.verify_id_token(auth_header)
+    print('Decoded token: ', decoded_token)
     user_doc = db.collection("users").stream()
 
     return user_doc
