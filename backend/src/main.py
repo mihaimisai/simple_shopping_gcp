@@ -21,20 +21,24 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+
 async def get_current_user(request: Request):
     auth_header = request.headers.get("Authorization")
     if not auth_header:
-        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Missing auth header")
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Missing auth header",  # noqa
+        )
 
     try:
         token = auth_header.split(" ")[1]
         decoded_token = auth.verify_id_token(token)
-        return decoded_token['uid']
+        return decoded_token["uid"]
     except Exception as e:
-        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid token")
-
-
-    
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail=f"Invalid token: {e}",  # noqa
+        )
 
 
 @app.get("/healthcheck")
@@ -43,13 +47,13 @@ async def check():
 
 
 @app.get("/retrievelist")
-async def retrieve(current_user = Depends(get_current_user)):
-    
+async def retrieve(current_user=Depends(get_current_user)):
+
     user_id = current_user
     print(user_id)
-    
+
     user_doc = db.collection("users").stream()
-    
+
     return user_doc
 
 
