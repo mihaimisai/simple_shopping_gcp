@@ -28,7 +28,6 @@ async def check():
 @app.get("/retrievelist")
 async def retrieve():
     user_doc = db.collection("users").stream()
-    print(user_doc)
     return user_doc
 
 
