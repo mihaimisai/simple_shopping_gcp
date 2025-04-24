@@ -3,6 +3,8 @@ import AddItemForm from '../AddItemForm'
 import RefreshButton from '../RefreshButton'
 import ShoppingList from '../ShoppingList'
 import { useAuth } from '../../contexts/AuthContext'
+import addItemToList from '../lib/addItemToList'
+import deleteItemFromList from '../lib/deleteItemFromList'
 
 function ShoppingApp() {
 
@@ -24,31 +26,22 @@ function ShoppingApp() {
             }
         
             const data = await response.json()
+            console.log(data)
             setItems(data)
         } catch (error) {
             console.error("Error fetching items:", error)
         }
         }
-
-
-    //Buttons functionality
-    const addItem = async () => {
-        console.log('adding item')
-    }
-
-    const deleteItem = async () => {
-        console.log('deleting item')
-    }
     
 
     return (
         <div className='d-flex flex-column align-items-center my-4'>
             <h4>Hello {currentUser.displayName}</h4>
-            <AddItemForm onAdd={addItem}/>
+            <AddItemForm onAdd={addItemToList}/>
 
             <RefreshButton />
 
-            <ShoppingList items={items} onDelete={deleteItem} />
+            <ShoppingList items={items} onDelete={deleteItemFromList} />
 
         </div>
     );
