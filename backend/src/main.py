@@ -64,7 +64,7 @@ async def add(item: Item, current_user=Depends(get_current_user)):
         return "Item added successfully"
 
     except Exception as e:
-        return f"Error adding item: {e}"
+        raise HTTPException(status_code=500, detail=f"Error adding item: {e}")
 
 
 @app.get("/delete")

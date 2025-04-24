@@ -3,20 +3,21 @@ import AddItemForm from '../AddItemForm'
 import RefreshButton from '../RefreshButton'
 import ShoppingList from '../ShoppingList'
 import { useAuth } from '../../contexts/AuthContext'
-import DeleteItemFromList from '../lib/DeleteItemFromList'
-import AddItemToList from '../lib/AddItemToList'
+
 
 function ShoppingApp() {
 
-    const fastApi = 'https://shopping-list-fastapi-94310770586.europe-west2.run.app/retrievelist'
-    const { currentUser, getToken } = useAuth()
+    const retrieveFastApi = 'https://shopping-list-fastapi-94310770586.europe-west2.run.app/retrievelist'
+    const { getToken } = useAuth()
     const [items, setItems] = useState([])
     const [errorMessage, setErrorMessage] = useState('')
-
+    
     const fetchItems = useCallback(async () => {
+
         const token = await getToken()
+
         try {
-          const response = await fetch(fastApi, {
+          const response = await fetch(retrieveFastApi, {
             headers: { Authorization: `Bearer ${token}` }
           })
     
@@ -35,26 +36,45 @@ function ShoppingApp() {
         fetchItems()
       }, [fetchItems])
     
-    const handleAdd = async (itemName) => {
+    
+    const addItem = async (itemName) => {
+
         const token = await getToken()
-        await AddItemToList(itemName, token)
-        await fetchItems() // refresh list after adding
+        
+        try {
+            const addFastApi = 'https://shopping-list-fastapi-94310770586.europe-west2.run.app/add'
+            const response = await fetch(addFastApi, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify({ itemName })
+            });
+        
+            if (response.ok) {
+                const feedback = await response.json()
+                console.log(feedback)
+                fetchItems();
+            } else {
+                console.log('error: ', response)
+                console.error('Error adding item:', response.statusText);
+            }
+        } catch (error) {
+            console.error('Error adding item:', error);
+        }
     }
     
 
     return (
         <div className='d-flex flex-column align-items-center my-4'>
-            <h4>Hello {currentUser.displayName}!</h4>
+
             {errorMessage && <p className="error">{errorMessage}</p>}
-            <AddItemForm 
-                onAdd={handleAdd}
-                errorMessage={errorMessage}
-                setErrorMessage={setErrorMessage}
-            />
+            <AddItemForm onAdd={addItem}/>
 
             <RefreshButton />
 
-            <ShoppingList items={items} onDelete={DeleteItemFromList} />
+            <ShoppingList items={items} onDelete='' />
 
         </div>
     );

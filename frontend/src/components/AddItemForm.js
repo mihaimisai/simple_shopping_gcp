@@ -1,28 +1,13 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
 
-const AddItemForm = ({ onAdd, errorMessage, setErrorMessage}) => {
-  const [itemName, setItemName] = useState('')
-  const [isLoading, setIsLoading] = useState(false)
+const AddItemForm = ({ onAdd }) => {
+  const [itemName, setItemName] = useState('');
 
-
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault()
-    if (itemName.trim() === '') return
-
-    setIsLoading(true)
-    setErrorMessage('')
-
-    try {
-
-      await onAdd(itemName)
-
-      setItemName('')
-    } catch (error) {
-      console.error("Error adding item:", error);
-      setErrorMessage(error);
-    } finally {
-      setIsLoading(false);
-    }
+    if (itemName.trim() === '') return;
+    onAdd(itemName.toLowerCase());
+    setItemName('');
   };
 
   return (
@@ -32,11 +17,8 @@ const AddItemForm = ({ onAdd, errorMessage, setErrorMessage}) => {
         value={itemName}
         onChange={(e) => setItemName(e.target.value)}
         autoFocus
-        disabled={isLoading}
       />
-      <button type="submit" className='btn btn-success mx-2' disabled={isLoading}>
-        {isLoading ? 'Adding...' : 'Add Item'}
-      </button>
+      <button type="submit" className='btn btn-success mx-2'>Add Item</button>
     </form>
   );
 };
