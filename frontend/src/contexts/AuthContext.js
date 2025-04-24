@@ -9,7 +9,8 @@ import {
     updatePassword,
     updateEmail,
     deleteUser,
-    signOut
+    signOut,
+    getIdToken
 } from "firebase/auth"
 
 const AuthContext = createContext()
@@ -31,35 +32,40 @@ export const AuthProvider = ({ children }) => {
 
   function login(email, password) {
     return signInWithEmailAndPassword(auth, email, password)
-}
+  }
 
   function changeName(name) {
-        return updateProfile(auth.currentUser, {
-            displayName: name
-        })
-    }
+    return updateProfile(auth.currentUser, {
+        displayName: name
+    })
+  }
 
   function changeEmail(email) {
-        return updateEmail(auth.currentUser, email)
-    }
+    return updateEmail(auth.currentUser, email)
+  }
 
   function changePassword(password) {
-      return updatePassword(currentUser, password)
+    return updatePassword(currentUser, password)
   }
 
   function deleteProfile() {
-      return deleteUser(currentUser)
+    return deleteUser(currentUser)
   }
 
   function logout() {
     signOut(auth)
   }
 
+  //get id token
+  function getToken() {
+    return currentUser ? getIdToken(currentUser) : null
+  }
+
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       setCurrentUser(user)
       setLoading(false)
-    });
+  })
 
     return unsubscribe // Cleanup subscription on unmount
   }, [auth])
@@ -72,7 +78,8 @@ export const AuthProvider = ({ children }) => {
         changeEmail,
         changePassword,
         deleteProfile,
-        logout
+        logout,
+        getToken
     }
 
     return (
