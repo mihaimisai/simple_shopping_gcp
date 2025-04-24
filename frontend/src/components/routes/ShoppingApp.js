@@ -3,8 +3,8 @@ import AddItemForm from '../AddItemForm'
 import RefreshButton from '../RefreshButton'
 import ShoppingList from '../ShoppingList'
 import { useAuth } from '../../contexts/AuthContext'
-import deleteItemFromList from '../lib/deleteItemFromList'
-import addItemToList from '../lib/addItemToList'
+import DeleteItemFromList from '../lib/DeleteItemFromList'
+import AddItemToList from '../lib/AddItemToList'
 
 function ShoppingApp() {
 
@@ -33,7 +33,8 @@ function ShoppingApp() {
       }, [fetchItems])
     
     const handleAdd = async (itemName) => {
-        await addItemToList(itemName)
+        const token = await getToken()
+        await AddItemToList(itemName, token)
         await fetchItems() // refresh list after adding
     }
     
@@ -45,7 +46,7 @@ function ShoppingApp() {
 
             <RefreshButton />
 
-            <ShoppingList items={items} onDelete={deleteItemFromList} />
+            <ShoppingList items={items} onDelete={DeleteItemFromList} />
 
         </div>
     );

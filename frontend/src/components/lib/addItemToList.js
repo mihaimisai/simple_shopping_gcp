@@ -1,12 +1,15 @@
-const addItemToList = async (itemName) => {
+
+const AddItemToList = async (itemName, token) => {
 
     const fastApi = 'https://shopping-list-fastapi-94310770586.europe-west2.run.app/add'
+
     try {
-        console.log(itemName)
+
         const response  = await fetch(fastApi, {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${token}`
             },
             body: JSON.stringify({ itemName})
         })
@@ -20,4 +23,4 @@ const addItemToList = async (itemName) => {
     }
 }
 
-export default addItemToList
+export default AddItemToList
