@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Request
+from fastapi import FastAPI, Request, Depends, status, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from .firebase_utils import db
 from firebase_admin import auth
@@ -21,20 +21,55 @@ app.add_middleware(
 )
 
 
+async def get_current_user(request: Request):
+
+    auth_header = request.headers.get("Authorization")
+
+    if not auth_header or not auth_header.startswith("Bearer "):
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Invalid or missing auth token",
+        )
+
+    token = auth_header.split("Bearer ")[1]
+
+    try:
+
+        decoded_token = auth.verify_id_token(token)
+        user_id = decoded_token["uid"]
+        return user_id
+
+    except Exception as e:
+
+        raise HTTPException(
+            status_code=401,
+            detail=f"Token verification failed: {str(e)}",
+        )
+
+
 @app.get("/healthcheck")
 async def check():
     return {"status": 200}
 
 
 @app.get("/retrievelist")
-async def retrieve(request: Request):
-    auth_header = request.headers.get("Authorization").split("Bearer ")[1]
-    print("Auth header: ", auth_header)
-    decoded_token = auth.verify_id_token(auth_header)
-    print("Decoded token: ", decoded_token)
-    user_doc = db.collection("users").stream()
+async def retrieve(current_user=Depends(get_current_user)):
 
-    return user_doc
+    try:
+
+        user_doc = (
+            db.collection("users")
+            .document(current_user)
+            .collection("items")
+            .stream()  # noqa
+        )
+
+        return user_doc
+
+    except Exception as e:
+        raise HTTPException(
+            status_code=500, detail=f"Error retrieving data: {e}"
+        )  # noqa
 
 
 @app.get("/add")
