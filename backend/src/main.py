@@ -102,6 +102,28 @@ def add(item: Item, current_user=Depends(get_current_user)):
         )
 
 
-@app.get("/delete")
-def delete():
-    return {"message": "Item deleted"}
+@app.delete("/delete")
+def delete(item: Item, current_user=Depends(get_current_user)):
+
+    try:
+        items_ref = (
+            db.collection("users")
+            .document(current_user["uid"])
+            .collection("items")
+            .document(item.id)  # noqa
+        )
+
+        doc = items_ref.get()
+        if not doc.exists:
+            raise HTTPException(status_code=404, detail="Item not found")
+
+        items_ref.delete()
+
+        return {"message": "Item deleted"}
+
+    except Exception as e:
+        logging.error(f"Error deleting item: {e}")
+        raise HTTPException(
+            status_code=500,
+            detail=f"Error deleting item: {e}",
+        )

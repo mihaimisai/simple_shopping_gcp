@@ -51,10 +51,10 @@ function ShoppingApp() {
             },
             body: JSON.stringify({ itemName })
             });
-        
+
             if (response.ok) {
-                const feedback = await response.json()
-                console.log(feedback)
+                const err = await response.json()
+                console.log(err)
                 fetchItems()
             } else {
                 console.error('error: ', await response.json())
@@ -65,21 +65,43 @@ function ShoppingApp() {
         }
     }
     
-    const deleteItem = async () => {
-        console.log('deleting item')
+    const deleteItem = async (id) => {
 
-        const deleteFastApi = "https://shopping-list-fastapi-94310770586.europe-west2.run.app/delete"
-
-        const response = await fetch(deleteFastApi)
-        const feedback = await response.json()
-        setErrorMessage(feedback.message)
-        
+        const token = await getToken()
+    
+        try {
+            const deleteFastApi = "https://shopping-list-fastapi-94310770586.europe-west2.run.app/delete"
+    
+            const response = await fetch(deleteFastApi, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                },
+                body: JSON.stringify({ id })  // send the id to delete
+            })
+    
+            if (!response.ok) {
+                const err = await response.json()
+                throw new Error(err.message || "Error deleting item")
+            }
+    
+            const feedback = await response.json()
+            console.log(feedback.message)
+            fetchItems()
+    
+        } catch (error) {
+            console.error('Error deleting item:', error.message)
+            setErrorMessage(error.message)
+        }
     }
+    
 
     return (
         <div className='d-flex flex-column align-items-center my-4'>
 
-            {errorMessage && <p className="error">{errorMessage}</p>}
+            {errorMessage && <p className="alert alert-danger">{errorMessage}</p>}
+
             <AddItemForm onAdd={addItem}/>
 
             <RefreshButton />
