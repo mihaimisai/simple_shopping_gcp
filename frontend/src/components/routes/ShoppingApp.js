@@ -11,6 +11,7 @@ function ShoppingApp() {
 
     const fetchItems = useCallback(async () => {
         try {
+            setErrorMessage('')
             const data = await apiRequest('/retrievelist')
             setItems(data)
         } catch (error) {
@@ -25,6 +26,7 @@ function ShoppingApp() {
 
     const addItem = async (itemName) => {
         try {
+            setErrorMessage('')
             await apiRequest('/add', 'POST', { itemName })
             fetchItems()
         } catch (error) {
@@ -35,7 +37,8 @@ function ShoppingApp() {
 
     const deleteItem = async (id) => {
         try {
-            await apiRequest('/delete', 'DELETE', { id })
+            setErrorMessage('')
+            await apiRequest(`/delete/${id}`, 'DELETE', { id })
             fetchItems()
         } catch (error) {
             console.error('Error deleting item:', error.message)

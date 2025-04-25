@@ -102,8 +102,8 @@ def add(item: Item, current_user=Depends(get_current_user)):
         )
 
 
-@app.delete("/delete")
-def delete(item: Item, current_user=Depends(get_current_user)):
+@app.delete("/delete/{item_id}")
+def delete(item_id: str, current_user=Depends(get_current_user)):
 
     try:
         items_ref = (
