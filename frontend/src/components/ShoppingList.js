@@ -4,7 +4,7 @@ import ShoppingItem from './ShoppingItem';
 
 
 function ShoppingList({items, onDelete}) {
-
+   
     return (
         <div className='d-flex justify-content-center align-items-center'>
             {items.length > 0 ? (

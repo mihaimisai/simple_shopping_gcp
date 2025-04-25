@@ -24,7 +24,11 @@ const useApiRequest = () => {
 
         const response = await fetch(url, options)
 
-        if (!response.ok) throw new Error('Failed to fetch items')
+        if (!response.ok) {
+            const errorMessage = await response.text()
+            throw new Error(
+                `Request failed with status ${response.status}: ${errorMessage}`
+        )}
 
         return await response.json()
     }, [getToken])

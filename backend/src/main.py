@@ -63,10 +63,12 @@ def retrieve(current_user=Depends(get_current_user)):
             .collection("items")  # noqa
         )
 
-        items_dict = [doc.to_dict() for doc in items_collection.stream()]
-        items_list = [item["itemName"] for item in items_dict]
+        items = [
+            {"id": doc.id, **doc.to_dict()}
+            for doc in items_collection.stream()
+        ]
 
-        return items_list
+        return items
 
     except Exception as e:
         logging.error(f"Error retrieving data: {e}")
@@ -75,12 +77,8 @@ def retrieve(current_user=Depends(get_current_user)):
         )  # noqa
 
 
-class Item(BaseModel):
-    itemName: str
-
-
 @app.post("/add")
-def add(item: Item, current_user=Depends(get_current_user)):
+def add(item: str, current_user=Depends(get_current_user)):
 
     try:
 
@@ -110,7 +108,7 @@ def delete(item_id: str, current_user=Depends(get_current_user)):
             db.collection("users")
             .document(current_user["uid"])
             .collection("items")
-            .document(item.id)  # noqa
+            .document(item_id)  # noqa
         )
 
         doc = items_ref.get()

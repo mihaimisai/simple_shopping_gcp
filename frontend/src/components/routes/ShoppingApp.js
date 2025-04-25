@@ -36,6 +36,7 @@ function ShoppingApp() {
     }
 
     const deleteItem = async (id) => {
+        console.log(id)
         try {
             setErrorMessage('')
             await apiRequest(`/delete/${id}`, 'DELETE', { id })
