@@ -2,6 +2,7 @@ from fastapi import FastAPI, Request, Depends, status, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from .firebase_utils import db, logging
 from firebase_admin import auth
+from pydantic import BaseModel
 
 app = FastAPI()
 
@@ -64,8 +65,8 @@ def retrieve(current_user=Depends(get_current_user)):
 
         items = [
             {"id": doc.id, **doc.to_dict()}
-            for doc in items_collection.stream()  # noqa
-        ]
+            for doc in items_collection.stream()
+        ] #noqa
 
         return items
 
@@ -76,8 +77,12 @@ def retrieve(current_user=Depends(get_current_user)):
         )  # noqa
 
 
+class Item(BaseModel):
+    itemName: str
+
+
 @app.post("/add")
-def add(item: str, current_user=Depends(get_current_user)):
+def add(item: Item, current_user=Depends(get_current_user)):
 
     try:
 

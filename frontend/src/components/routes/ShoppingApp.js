@@ -29,10 +29,11 @@ function ShoppingApp() {
     const addItem = async (itemName) => {
         try {
             setErrorMessage('')
-            response = await apiRequest('/add', 'POST', { itemName })
+            const response = await apiRequest('/add', 'POST', { itemName })
+            setAlert('alert alert-success')
             setErrorMessage(response.json())
             fetchItems()
-            setAlert('alert alert-success')
+            
         } catch (error) {
             setAlert('alert alert-danger')
             console.error('Error adding item:', error.message)
@@ -44,7 +45,9 @@ function ShoppingApp() {
       
         try {
             setErrorMessage('')
-            await apiRequest(`/delete/${id}`, 'DELETE', { id })
+            const response = await apiRequest(`/delete/${id}`, 'DELETE', { id })
+            setAlert('alert alert-success')
+            setErrorMessage(response.json())
             fetchItems()
         } catch (error) {
             console.error('Error deleting item:', error.message)
@@ -52,12 +55,16 @@ function ShoppingApp() {
         }
     }
 
+    const refreshItems = () => {
+        fetchItems();
+    }
+
     return (
         <div className='d-flex flex-column align-items-center my-4'>
             {errorMessage && <p className={alert}>{errorMessage}</p>}
 
             <AddItemForm onAdd={addItem} />
-            <RefreshButton />
+            <RefreshButton onRefresh={refreshItems}/>
             <ShoppingList items={items} onDelete={deleteItem}/>
         </div>
     )
