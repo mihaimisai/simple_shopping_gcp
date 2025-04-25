@@ -10,7 +10,7 @@ function ShoppingList({items, onDelete}) {
             {items.length > 0 ? (
                 <ul className='list-group list-unstyled my-5'>
                 {items.map((item) => (
-                    <ShoppingItem key={item.id} item={item} onDelete={onDelete} />
+                    <ShoppingItem key={item.id} item={item} onDelete={onDelete}/>
                 ))}
                 </ul>
             ) : (
