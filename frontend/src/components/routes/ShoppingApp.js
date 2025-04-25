@@ -27,8 +27,8 @@ function ShoppingApp() {
           setItems(data)
 
         } catch (error) {
-          console.error('Error fetching items:', error)
-          setErrorMessage(error)
+          console.error('Error fetching items:', error.message)
+          setErrorMessage(error.message)
         }
       }, [getToken])
 
@@ -55,16 +55,26 @@ function ShoppingApp() {
             if (response.ok) {
                 const feedback = await response.json()
                 console.log(feedback)
-                fetchItems();
+                fetchItems()
             } else {
-                console.log('error: ', response)
-                console.error('Error adding item:', response.statusText);
+                console.error('error: ', await response.json())
             }
         } catch (error) {
-            console.error('Error adding item:', error);
+            console.error('Error adding item:', error.message)
+            setErrorMessage(error.message)
         }
     }
     
+    const deleteItem = async () => {
+        console.log('deleting item')
+
+        const deleteFastApi = "https://shopping-list-fastapi-94310770586.europe-west2.run.app/delete"
+
+        const response = await fetch(deleteFastApi)
+        const feedback = await response.json()
+        setErrorMessage(feedback.message)
+        
+    }
 
     return (
         <div className='d-flex flex-column align-items-center my-4'>
@@ -74,7 +84,7 @@ function ShoppingApp() {
 
             <RefreshButton />
 
-            <ShoppingList items={items} onDelete='' />
+            <ShoppingList items={items} onDelete={deleteItem} />
 
         </div>
     );

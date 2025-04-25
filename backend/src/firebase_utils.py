@@ -13,7 +13,7 @@ try:
         cred = credentials.ApplicationDefault()
         firebase_admin.initialize_app(cred)
         logging.info("Firebase Admin SDK initialized successfully.")
-    db = firestore.client()
+    db = firestore.client(database_id="simple-shopping")
     logging.info("Connected to Firestore")
 except Exception as e:
     logging.error(
