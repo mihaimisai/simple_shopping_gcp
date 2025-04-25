@@ -8,6 +8,7 @@ function ShoppingApp() {
     const [items, setItems] = useState([])
     const [errorMessage, setErrorMessage] = useState('')
     const apiRequest = useApiRequest()
+    const [alert ,setAlert] = useState('')
 
     const fetchItems = useCallback(async () => {
         try {
@@ -16,6 +17,7 @@ function ShoppingApp() {
             setItems(data)
         } catch (error) {
             console.error('Error fetching items:', error.message)
+            setAlert('alert alert-danger')
             setErrorMessage(error.message)
         }
     }, [apiRequest])
@@ -27,16 +29,19 @@ function ShoppingApp() {
     const addItem = async (itemName) => {
         try {
             setErrorMessage('')
-            await apiRequest('/add', 'POST', { itemName })
+            response = await apiRequest('/add', 'POST', { itemName })
+            setErrorMessage(response.json())
             fetchItems()
+            setAlert('alert alert-success')
         } catch (error) {
+            setAlert('alert alert-danger')
             console.error('Error adding item:', error.message)
             setErrorMessage(error.message)
         }
     }
 
     const deleteItem = async (id) => {
-        console.log(id)
+      
         try {
             setErrorMessage('')
             await apiRequest(`/delete/${id}`, 'DELETE', { id })
@@ -49,7 +54,7 @@ function ShoppingApp() {
 
     return (
         <div className='d-flex flex-column align-items-center my-4'>
-            {errorMessage && <p className="alert alert-danger">{errorMessage}</p>}
+            {errorMessage && <p className={alert}>{errorMessage}</p>}
 
             <AddItemForm onAdd={addItem} />
             <RefreshButton />
