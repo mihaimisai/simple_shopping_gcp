@@ -12,7 +12,6 @@ function ShoppingApp() {
 
     const fetchItems = useCallback(async () => {
         try {
-            setErrorMessage('')
             const data = await apiRequest('/retrievelist')
             setItems(data)
         } catch (error) {
@@ -31,7 +30,7 @@ function ShoppingApp() {
             setErrorMessage('')
             const response = await apiRequest('/add', 'POST', { itemName })
             setAlert('alert alert-success')
-            setErrorMessage(response.json())
+            setErrorMessage(response.message)
             fetchItems()
             
         } catch (error) {
@@ -47,7 +46,7 @@ function ShoppingApp() {
             setErrorMessage('')
             const response = await apiRequest(`/delete/${id}`, 'DELETE', { id })
             setAlert('alert alert-success')
-            setErrorMessage(response.json())
+            setErrorMessage(response.message)
             fetchItems()
         } catch (error) {
             console.error('Error deleting item:', error.message)
@@ -56,17 +55,27 @@ function ShoppingApp() {
     }
 
     const refreshItems = () => {
+        setErrorMessage('')
         fetchItems();
     }
 
     return (
+        <>
+        <div className="sticky top-mt2">
+            {errorMessage && (
+                <div className={alert} role="alert">
+                    {errorMessage}
+                </div>
+            )}
+        </div>
+
         <div className='d-flex flex-column align-items-center my-4'>
-            {errorMessage && <p className={alert}>{errorMessage}</p>}
 
             <AddItemForm onAdd={addItem} />
             <RefreshButton onRefresh={refreshItems}/>
             <ShoppingList items={items} onDelete={deleteItem}/>
         </div>
+        </>
     )
 }
 

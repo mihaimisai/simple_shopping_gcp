@@ -29,8 +29,8 @@ const useApiRequest = () => {
             throw new Error(
                 `Request failed with status ${response.status}: ${errorMessage}`
         )}
-
-        return await response.json()
+        
+        return response.json()
     }, [getToken])
 
     return apiRequest

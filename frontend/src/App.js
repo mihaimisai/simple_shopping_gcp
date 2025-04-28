@@ -5,7 +5,7 @@ import { AuthProvider } from './contexts/AuthContext';
 import LoginApp from './components/routes/LoginApp';
 import NavMenu from './components/NavMenu';
 import ProfileApp from './components/routes/ProfileApp'
-import PrivateRoute from './components/PrivateRoute';
+import PrivateRoute from './components/routes/PrivateRoute';
 import NotFoundRoute from './components/routes/NotFoundRoute';
 import ShoppingApp from './components/routes/ShoppingApp';
 
