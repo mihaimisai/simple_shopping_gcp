@@ -57,9 +57,14 @@ After the first deploy a new service account will be created that looks like
 -Cloud Run Builder
 -Add Cloud Run service account as principal with Service Account User role
 
+### Cloud run deploy from source
+The workflow is setup to deploy the app from source and not using Dockerfile. For this to happen a Procfile has to be created inside backend folder with the following line:
 
+web: gunicorn --worker-class uvicorn.workers.UvicornWorker src.main:app
 
+Also the requirements for FastAPI backend, have to be explicit, pip freeze caused conflicts so the required packaged are added manually.
 
+Deployment to Cloud run is only running from "main" branch.
 
 
 
