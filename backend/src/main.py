@@ -66,7 +66,9 @@ def retrieve(current_user=Depends(get_current_user)):
         )
 
         items = [
-            {"id": doc.id, **doc.to_dict()}
+            {
+                "id": doc.id,
+                "itemName": doc.to_dict.get("itemName", "")}
             for doc in items_collection.stream()  # noqa
         ]
         
