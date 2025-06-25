@@ -62,17 +62,26 @@ def retrieve(current_user=Depends(get_current_user)):
             db.collection("users")
             .document(current_user["uid"])
             .collection("items") 
-            .order_by("timestamp")# noqa
+            #.order_by("timestamp")# noqa
         )
 
-        items = [
-            {
-                "id": doc.id,
-                "itemName": doc.to_dict.get("itemName", "")}
-            for doc in items_collection.stream()  # noqa
+        raw_items = [
+            {"id": doc.id, **doc.to_dict()}
+            for doc in items_collection.stream()
         ]
+
+        items_with_timestamp = [
+            item for item in raw_items if "timestamp" in item
+        ]
+        items_without_timestamp = [
+            item for item in raw_items if "timestamp" not in item
+        ]
+
+        items_with_timestamp.sort(key=lambda x: x["timestamp"])
         
-        return items
+        sorted_items = items_with_timestamp + items_without_timestamp
+
+        return sorted_items
 
     except Exception as e:
         logging.error(f"Error retrieving data: {e}")
