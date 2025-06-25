@@ -3,7 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from .firebase_utils import db, logging
 from firebase_admin import auth
 from pydantic import BaseModel
-from google.cloud import firestore
+from google.cloud.firestore_v1 import SERVER_TIMESTAMP
 
 app = FastAPI()
 
@@ -108,7 +108,7 @@ def add(item: Item, current_user=Depends(get_current_user)):
         items_collection.add(
             {
                 "itemName": item.itemName,
-                "timestamp": firestore.FieldValue.serverTimestamp(),
+                "timestamp": SERVER_TIMESTAMP
             }
         )
 
