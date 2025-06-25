@@ -3,6 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from .firebase_utils import db, logging
 from firebase_admin import auth
 from pydantic import BaseModel
+from google.cloud import firestore
 
 app = FastAPI()
 
@@ -67,7 +68,7 @@ def retrieve(current_user=Depends(get_current_user)):
             {"id": doc.id, **doc.to_dict()}
             for doc in items_collection.stream()  # noqa
         ]
-
+        print(items)
         return items
 
     except Exception as e:
@@ -92,7 +93,10 @@ def add(item: Item, current_user=Depends(get_current_user)):
             .collection("items")  # noqa
         )
 
-        items_collection.add({"itemName": item.itemName})
+        items_collection.add({
+            "itemName": item.itemName,
+            'timestamp': firestore.FieldValue.serverTimestamp()
+            })
 
         return {"message": "Item added successfully"}
 

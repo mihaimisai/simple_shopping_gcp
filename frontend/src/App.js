@@ -15,7 +15,7 @@ function App() {
      <BrowserRouter>
       <AuthProvider>
         <div className=' d-flex align-items-center justify-content-center bg-secondary'>
-          <div className='min-vh-100 w-75 bg-dark text-bg-dark d-flex flex-column'>
+          <div class='min-vh-100 w-100 bg-dark text-bg-dark d-flex flex-column'>
             {/* Navigation menu & hamburger */}
             <NavMenu />
 
