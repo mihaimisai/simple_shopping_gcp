@@ -11,7 +11,7 @@ const AddItemForm = ({ onAdd }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className='align-items-center'>
       <input
         type="text"
         value={itemName}

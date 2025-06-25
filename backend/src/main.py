@@ -61,14 +61,15 @@ def retrieve(current_user=Depends(get_current_user)):
         items_collection = (
             db.collection("users")
             .document(current_user["uid"])
-            .collection("items")  # noqa
+            .collection("items") 
+            .order_by("timestamp")# noqa
         )
 
         items = [
             {"id": doc.id, **doc.to_dict()}
             for doc in items_collection.stream()  # noqa
         ]
-        print(items)
+        
         return items
 
     except Exception as e:
@@ -90,7 +91,7 @@ def add(item: Item, current_user=Depends(get_current_user)):
         items_collection = (
             db.collection("users")
             .document(current_user["uid"])
-            .collection("items")  # noqa
+            .collection("items") # noqa
         )
 
         items_collection.add({
