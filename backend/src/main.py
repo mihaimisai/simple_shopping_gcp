@@ -61,24 +61,24 @@ def retrieve(current_user=Depends(get_current_user)):
         items_collection = (
             db.collection("users")
             .document(current_user["uid"])
-            .collection("items") 
-            #.order_by("timestamp")# noqa
+            .collection("items")
+            # .order_by("timestamp")# noqa
         )
 
         raw_items = [
             {"id": doc.id, **doc.to_dict()}
-            for doc in items_collection.stream()
+            for doc in items_collection.stream()  # noqa
         ]
 
         items_with_timestamp = [
             item for item in raw_items if "timestamp" in item
-        ]
+        ]  # noqa
         items_without_timestamp = [
             item for item in raw_items if "timestamp" not in item
         ]
 
         items_with_timestamp.sort(key=lambda x: x["timestamp"])
-        
+
         sorted_items = items_with_timestamp + items_without_timestamp
 
         return sorted_items
@@ -102,13 +102,15 @@ def add(item: Item, current_user=Depends(get_current_user)):
         items_collection = (
             db.collection("users")
             .document(current_user["uid"])
-            .collection("items") # noqa
+            .collection("items")  # noqa
         )
 
-        items_collection.add({
-            "itemName": item.itemName,
-            'timestamp': firestore.FieldValue.serverTimestamp()
-            })
+        items_collection.add(
+            {
+                "itemName": item.itemName,
+                "timestamp": firestore.FieldValue.serverTimestamp(),
+            }
+        )
 
         return {"message": "Item added successfully"}
 
